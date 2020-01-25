@@ -1,0 +1,126 @@
+/*--
+    18. About Page Css
+----------------------------------*/
+.about-info-wrapper {
+    & h2 {
+        font-size: 24px;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+    @media #{$large-mobile,$tablet-device} {
+        margin-top: 30px;
+    }
+    & .read-more-btn {
+        & > a {
+            background: #333333 none repeat scroll 0 0;
+            color: #ffffff;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            -webkit-transition: all 0.3s ease-in-out 0s;
+            transition: all 0.3s ease-in-out 0s;
+            &:hover {
+                background: $theme-color;
+            }
+        }
+    }
+}
+// team css
+.single-team {
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 5px 5px rgba(15, 9, 128, 0.035), 5px 12px 30px 5px rgba(15, 9, 128, 0.05);
+    & .team-imgae {
+        position: relative;
+        & img {
+            width: 100%;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.6) repeat scroll 0 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+        }
+        & .social-link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            color: #fff;
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            opacity: 0;
+            & a {
+                font-size: 14px;
+                margin: 0 5px;
+                border: 1px solid #fff;
+                width: 34px;
+                border-radius: 50%;
+                height: 34px;
+                line-height: 34px;
+                &:hover {
+                    &.facebook:hover {
+                        background: #3B5998;
+                        border: 1px solid #3B5998;
+                        color: #fff;
+                    }
+                    &.twitter:hover {
+                        background: #00ACEE;
+                        border: 1px solid #00ACEE;
+                        color: #fff;
+                    }
+                    &.google-plus:hover {
+                        background: #DD4C48;
+                        border: 1px solid #DD4C48;
+                        color: #fff;
+                    }
+                    &.vimeo:hover {
+                        background: #1AB7EA;
+                        border: 1px solid #1AB7EA;
+                        color: #fff;
+                    }
+                    &.dribbble:hover {
+                        background: #E2324D;
+                        border: 1px solid #E2324D;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    & .team-info {
+        background: #fff;
+        text-align: center;
+        padding: 10px 0;
+        & h3 {
+            font-weight: 500;
+            font-size: 20px;
+            margin: 0  0 5px 0;
+        }
+        & p {
+            font-size: 14px;
+            margin-bottom: 4px;
+            line-height: 20px;
+            text-transform: capitalize;
+        }
+    }
+    &:hover {
+        & .team-imgae {
+            &::before {
+                opacity: 1;
+            }
+        }
+        & .social-link {
+            bottom: 20px;
+            opacity: 1;
+        }
+        
+    }
+}

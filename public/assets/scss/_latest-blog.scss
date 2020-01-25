@@ -1,0 +1,45 @@
+/*--
+    09. Latest Blog Css
+----------------------------*/
+.single-latest-blog {
+    & .latest-blog-image {
+        & a {
+            display: block;
+            & img {
+                width: 100%;
+            } 
+        }
+    }
+    & .latest-blog-content {
+        & h4 {
+            margin: 0;
+            & a {
+                line-height: 30px;
+                padding: 20px 0 7px;
+                font-size: 19px;
+                text-transform: capitalize;
+                font-weight: 400;
+                position: relative;
+                display: block;
+            }
+        }
+        & .post_meta {
+                font-size: 13px;
+                line-height: 25px;
+                text-transform: capitalize;
+                display: inline-block;
+            & .meta_date {
+                margin-right: 20px; 
+                & i {
+                    margin-right: 5px;
+                }
+            }
+        }
+        & p {
+            line-height: 24px;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 10px 0 0 0;
+        }
+    }
+}

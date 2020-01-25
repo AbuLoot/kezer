@@ -1,0 +1,30 @@
+.custom-row {
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+}
+.custom-row [class*="col"] {
+  padding-right: 7.5px;
+  padding-left: 7.5px;
+}
+@media (max-width: 480px) {
+  .custom-xs-row {
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+  }
+  .custom-xs-row [class*="col"] {
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+}
+@media (min-width: 768px) {
+  .custom-menu {
+    width: 680px;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
+
+.filter-sub-area label {
+  margin-bottom: 0;
+}

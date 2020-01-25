@@ -1,0 +1,12 @@
+body.christmas-body {
+    background: #B91D23;
+    background-image: url(../images/icon/panern-01.png);
+    background-size: 400px;
+}
+.christmas-body {
+    & .single-product-wrap {
+        & .label-product.label-sale {
+            background: #B91D23;
+        }
+    }
+}
