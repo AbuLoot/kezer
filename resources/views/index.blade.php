@@ -94,9 +94,6 @@
                     <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
                   @endif
                 @endforeach
-                <div class="quick_view">
-                  <a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-search"></i></a>
-                </div>
               </div>
               <div class="product-content">
                 <h3><a href="/p/{{ $new_product->slug }}">{{ $new_product->title }}</a></h3>
@@ -125,54 +122,38 @@
         <div class="col-lg-12">
           <div class="section-title">
             <h2>Лучшие одежды</h2>
-            <!-- <p>Лучшие одежды 2020 года</p> -->
           </div>
         </div>
       </div>
-      <!-- product-wrapper -->
-      <div class="product-wrapper">
-        <div class="row product-slider">
-          @foreach($mode_best->products->where('status', 1)->take(8) as $best_product)
-            <div class="col-12">
-              <div class="single-product-wrap">
-                <div class="product-image">
-                  <a href="/p/{{ $best_product->slug }}"><img src="/img/products/{{ $best_product->path.'/'.$best_product->image }}" alt="{{ $best_product->title }}"></a>
-                  @foreach($best_product->modes as $m)
-                    @if(in_array($m->slug, ['recommend', 'novelty', 'best-price', 'stock', 'plus-gift']))
-                      <span class="label-product label-new">new</span>
-                      <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
-                    @endif
-                  @endforeach
-                  <div class="quick_view">
-                    <a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-search"></i></a>
-                  </div>
+      <div class="row custom-row">
+        @foreach($mode_best->products->where('status', 1)->take(12) as $best_product)
+          <div class="col-6 col-md-3 col-lg-3">
+            <div class="single-product-wrap">
+              <div class="product-image">
+                <a href="/p/{{ $best_product->slug }}"><img src="/img/products/{{ $best_product->path.'/'.$best_product->image }}" alt="{{ $best_product->title }}"></a>
+                @foreach($best_product->modes as $m)
+                  @if(in_array($m->slug, ['recommend', 'novelty', 'best-price', 'stock', 'plus-gift']))
+                    <span class="label-product label-new">new</span>
+                    <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
+                  @endif
+                @endforeach
+              </div>
+              <div class="product-content">
+                <h3><a href="/p/{{ $best_product->slug }}">{{ $best_product->title }}</a></h3>
+                <div class="price-box">
+                  <span class="new-price">{{ $best_product->price }}〒</span>
                 </div>
-                <div class="product-content">
-                  <h3><a href="/p/{{ $best_product->slug }}">{{ $best_product->title }}</a></h3>
-                  <div class="price-box">
-                    <span class="new-price">{{ $best_product->price }}〒</span>
-                  </div>
-                  <div class="product-action">
-                    @if (is_array($items) AND isset($items['products_id'][$best_product->id]))
-                      <a href="/cart" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>
-                    @else
-                      <button class="add-to-cart" data-product-id="{{ $best_product->id }}" onclick="addToCart(this);" title="Добавить в корзину"><i class="fa fa-plus"></i> В корзину</button>
-                      <div class="star_content">
-                        <ul class="d-flex">
-                          <li><a class="star" href="#"><i class="fa fa-star"></i></a></li>
-                          <li><a class="star" href="#"><i class="fa fa-star"></i></a></li>
-                          <li><a class="star" href="#"><i class="fa fa-star"></i></a></li>
-                          <li><a class="star" href="#"><i class="fa fa-star"></i></a></li>
-                          <li><a class="star-o" href="#"><i class="fa fa-star-o"></i></a></li>
-                        </ul>
-                      </div>
-                    @endif
-                  </div>
+                <div class="product-action">
+                  @if (is_array($items) AND isset($items['products_id'][$best_product->id]))
+                    <a href="/cart" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>
+                  @else
+                    <button class="add-to-cart" data-product-id="{{ $best_product->id }}" onclick="addToCart(this);" title="Добавить в корзину"><i class="fa fa-plus"></i> В корзину</button>
+                  @endif
                 </div>
               </div>
             </div>
-          @endforeach
-        </div>
+          </div>
+        @endforeach
       </div>
     </div>
   </div>

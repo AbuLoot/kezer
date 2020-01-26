@@ -3,12 +3,12 @@
 Auth::routes();
 
 // Authentication routes...
-Route::get('login-reg', 'Auth\AuthCustomController@getLogin');
-Route::post('login-custom', 'Auth\AuthCustomController@postLogin');
+Route::get('login-cs', 'Auth\AuthCustomController@getLogin');
+Route::post('login-cs', 'Auth\AuthCustomController@postLogin');
 
 // Registration routes...
 // Route::get('register', 'Auth\AuthController@getRegister');
-// Route::post('register-custom', 'Auth\AuthCustomController@postRegister');
+Route::post('register-cs', 'Auth\AuthCustomController@postRegister');
 // Route::get('confirm/{token}', 'Auth\AuthCustomController@confirm');
 
 // User Profile

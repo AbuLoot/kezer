@@ -24,7 +24,21 @@
     column-count: 3;
   }
 }
-
+.custom-list-group {
+  border: 1px solid #ededed;
+  border-radius: 3px;
+}
+.custom-list-group .list-group-item {
+  border: 1px solid #ededed;
+}
+.custom-list-group .list-group-item:first-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.custom-list-group .list-group-item:last-child {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
 .filter-sub-area label {
   margin-bottom: 0;
 }

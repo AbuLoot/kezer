@@ -93,8 +93,14 @@ class ShopController extends Controller
     {
         $category = Category::findOrFail($category_id);
 
+        if ($category->children && count($category->children) > 0) {
+            $ids = $category->children->pluck('id');
+        }
+
+        $ids[] = $category->id;
+
         // Action operations
-        $actions = ['default' => 'id', 'low' => 'price', 'expensive' => 'price DESC', 'popular' => 'views DESC'];
+        $actions = ['default' => 'id', 'popular' => 'views DESC', 'new' => 'updated_at DESC', 'high' => 'price DESC', 'low' => 'price'];
         $sort = ($request->session()->has('action')) ? $actions[session('action')] : 'id';
 
         if ($request->ajax() AND isset($request->action)) {
@@ -115,13 +121,13 @@ class ShopController extends Controller
 
             $options_id = session('options');
 
-            $products = Product::where('status', '<>', 0)->where('category_id', $category->id)->orderByRaw($sort)
+            $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->whereHas('options', function ($query) use ($options_id) {
                     $query->whereIn('option_id', $options_id);
                 })->paginate(12);
         }
         else {
-            $products = Product::where('status', '<>', 0)->where('category_id', $category->id)->orderByRaw($sort)
+            $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->paginate(12);
         }
 
@@ -133,7 +139,7 @@ class ShopController extends Controller
             ->join('product_option', 'products.id', '=', 'product_option.product_id')
             ->join('options', 'options.id', '=', 'product_option.option_id')
             ->select('options.id', 'options.slug', 'options.title', 'options.data')
-            ->where('category_id', $category->id)
+            ->whereIn('category_id', $ids)
             // ->where('products.status', '<>', 0)
             ->distinct()
             ->get();
@@ -147,8 +153,14 @@ class ShopController extends Controller
     {
         $category = Category::findOrFail($category_id);
 
+        if ($category->children && count($category->children) > 0) {
+            $ids = $category->children->pluck('id');
+        }
+
+        $ids[] = $category->id;
+
         // Action operations
-        $actions = ['default' => 'id', 'low' => 'price', 'expensive' => 'price DESC', 'popular' => 'views DESC'];
+        $actions = ['default' => 'id', 'popular' => 'views DESC', 'new' => 'updated_at DESC', 'high' => 'price DESC', 'low' => 'price'];
         $sort = ($request->session()->has('action')) ? $actions[session('action')] : 'id';
 
         if ($request->ajax() AND isset($request->action)) {
@@ -168,14 +180,13 @@ class ShopController extends Controller
         if ($request->session()->has('options')) {
 
             $options_id = session('options');
-
-            $products = Product::where('status', '<>', 0)->where('category_id', $category->id)->orderByRaw($sort)
+            $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->whereHas('options', function ($query) use ($options_id) {
                     $query->whereIn('option_id', $options_id);
                 })->paginate(15);
         }
         else {
-            $products = Product::where('status', '<>', 0)->where('category_id', $category->id)->orderByRaw($sort)
+            $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->paginate(15);
         }
 
@@ -187,7 +198,7 @@ class ShopController extends Controller
             ->join('product_option', 'products.id', '=', 'product_option.product_id')
             ->join('options', 'options.id', '=', 'product_option.option_id')
             ->select('options.id', 'options.slug', 'options.title', 'options.data')
-            ->where('category_id', $category->id)
+            ->whereIn('category_id', $ids)
             // ->where('products.status', '<>', 0)
             ->distinct()
             ->get();

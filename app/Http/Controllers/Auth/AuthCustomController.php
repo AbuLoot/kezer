@@ -15,7 +15,7 @@ class AuthCustomController extends Controller
 {
     public function getLogin()
     {
-        return view('pages.login-reg');
+        return view('signin');
     }
 
     public function postLogin(Request $request)
@@ -43,6 +43,8 @@ class AuthCustomController extends Controller
             'password' => 'required|confirmed|min:6|max:255',
             // 'rules' => 'accepted'
         ]);
+
+        dd($request->all());
 
         $user = new User();
         $user->name = $request->name;

@@ -69,7 +69,7 @@
                       </ul>
                     </div>
                   </div>
-                </li>
+                </li> -->
                 <li class="setting-top list-inline-item">
                   <div class="btn-group">
                     <button class="dropdown-toggle"><i class="fa fa-user-circle-o"></i> Setting <i class="fa fa-angle-down"></i></button>
@@ -77,11 +77,11 @@
                       <ul>
                         <li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="login-register.html">Sign in</a></li>
+                        <li><a href="/login-cs">Sign in</a></li>
                       </ul>
                     </div>
                   </div>
-                </li> -->
+                </li>
               </ul>
             </div>
           </div>
@@ -129,7 +129,7 @@
                       <?php elseif ($category->ancestors->count() == 2) : ?>
                         <li><a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}">{{ $category->title }}</a></li>
                       <?php else : ?>
-                        <li><a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}"><b>{{ $category->title }}</b></a></li>
+                        <li><a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}" class="text-uppercase"><b>{{ $category->title }}</b></a></li>
                       <?php endif; ?>
                     <?php endforeach; ?>
                   <?php }; ?>
@@ -227,7 +227,7 @@
          </div>
        </div>
     </div>
-    <!-- footer-buttom start -->
+
     <div class="footer-buttom">
       <div class="container">
         <div class="row">
@@ -242,92 +242,7 @@
         </div>
       </div>
     </div>
-    <!-- footer-buttom start -->
   </footer>
-
-  <!-- Modal Algemeen Uitgelicht start -->
-  <div class="modal fade modal-wrapper" id="exampleModalCenter" >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="modal-inner-area row">
-            <div class="col-lg-5 col-md-6 col-sm-6">
-               <!-- Product Details Left -->
-              <div class="product-details-left">
-                <div class="product-details-images slider-navigation-1">
-                  <div class="lg-image">
-                    <img src="/assets/images/product/1.jpg" alt="product image">
-                  </div>
-                  <div class="lg-image">
-                    <img src="/assets/images/product/2.jpg" alt="product image">
-                  </div>
-                  <div class="lg-image">
-                    <img src="/assets/images/product/3.jpg" alt="product image">
-                  </div>
-                  <div class="lg-image">
-                    <img src="/assets/images/product/5.jpg" alt="product image">
-                  </div>
-                </div>
-                <div class="product-details-thumbs slider-thumbs-1">                    
-                  <div class="sm-image"><img src="/assets/images/product/1.jpg" alt="product image thumb"></div>
-                  <div class="sm-image"><img src="/assets/images/product/2.jpg" alt="product image thumb"></div>
-                  <div class="sm-image"><img src="/assets/images/product/3.jpg" alt="product image thumb"></div>
-                  <div class="sm-image"><img src="/assets/images/product/4.jpg" alt="product image thumb"></div>
-                </div>
-              </div>
-              <!--// Product Details Left -->
-            </div>
-
-            <div class="col-lg-7 col-md-6 col-sm-6">
-              <div class="product-details-view-content">
-                <div class="product-info">
-                  <h2>Healthy Melt</h2>
-                  <div class="price-box">
-                    <span class="new-price">$76.00</span>
-                    <span class="discount discount-percentage">Save 5%</span>
-                  </div>
-                  <p>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.</p>
-                  <div class="product-variants">
-                    <div class="produt-variants-size">
-                      <label>Size</label>
-                      <select class="form-control-select" >
-                        <option value="1" title="S" selected="selected">S</option>
-                        <option value="2" title="M">M</option>
-                        <option value="3" title="L">L</option>
-                      </select>
-                    </div>
-                    <div class="produt-variants-color">
-                      <label>Color</label>
-                      <ul class="color-list">
-                        <li><a href="#" class="orange-color active"></a></li>
-                        <li><a href="#" class="paste-color"></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="single-add-to-cart">
-                    <form action="#" class="cart-quantity">
-                      <div class="quantity">
-                        <label>Quantity</label>
-                        <div class="cart-plus-minus">
-                          <input class="cart-plus-minus-box" value="1" type="text">
-                          <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                          <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                        </div>
-                      </div>
-                      <button class="add-to-cart" type="submit">Add to cart</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>   
 
 </div>
 

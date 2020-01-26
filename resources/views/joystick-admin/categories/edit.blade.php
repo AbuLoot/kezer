@@ -29,12 +29,8 @@
         <option value=""></option>
         <?php $traverse = function ($nodes, $prefix = null) use (&$traverse, $category) { ?>
           <?php foreach ($nodes as $node) : ?>
-            <?php if ($node->id == $category->parent_id) : ?>
-              <option value="{{ $node->id }}" selected>{{ PHP_EOL.$prefix.' '.$node->title }}</option>
-            <?php else : ?>
-              <option value="{{ $node->id }}">{{ PHP_EOL.$prefix.' '.$node->title }}</option>
-            <?php endif; ?>
-            <?php $traverse($node->children, $prefix.'___'); ?>
+            <option value="{{ $node->id }}" <?= ($node->id == $category->parent_id) ? 'selected' : ''; ?>>{{ PHP_EOL.$prefix.' '.$node->title }}</option>
+            <?php $traverse($node->children, $prefix.'___'); ?>s
           <?php endforeach; ?>
         <?php }; ?>
         <?php $traverse($categories); ?>

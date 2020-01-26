@@ -71,9 +71,16 @@ class ProductController extends Controller
 
     public function categoryProducts($id)
     {
-        $category = Category::find($id);
         $categories = Category::get()->toTree();
-        $products = Product::where('category_id', $category->id)->orderBy('created_at')->paginate(50);
+        $category = Category::find($id);
+
+        if ($category->children && count($category->children) > 0) {
+            $ids = $category->children->pluck('id');
+        }
+
+        $ids[] = $category->id;
+
+        $products = Product::whereIn('category_id', $ids)->orderBy('created_at')->paginate(50);
         $modes = Mode::all();
 
         return view('joystick-admin.products.index', ['category' => $category, 'categories' => $categories, 'products' => $products, 'modes' => $modes]);
