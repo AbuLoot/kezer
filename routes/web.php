@@ -1,15 +1,16 @@
 <?php
 
-Auth::routes();
 
 // Authentication routes...
-Route::get('login-cs', 'Auth\AuthCustomController@getLogin');
-Route::post('login-cs', 'Auth\AuthCustomController@postLogin');
+Route::get('cs-login', 'Auth\AuthCustomController@getLogin');
+Route::post('cs-login', 'Auth\AuthCustomController@postLogin');
 
 // Registration routes...
-// Route::get('register', 'Auth\AuthController@getRegister');
-Route::post('register-cs', 'Auth\AuthCustomController@postRegister');
+Route::get('cs-register', 'Auth\AuthCustomController@getRegister');
+Route::post('cs-register', 'Auth\AuthCustomController@postRegister');
 // Route::get('confirm/{token}', 'Auth\AuthCustomController@confirm');
+
+Auth::routes();
 
 // User Profile
 Route::group(['middleware' => 'auth', 'role:user'], function() {
@@ -17,7 +18,7 @@ Route::group(['middleware' => 'auth', 'role:user'], function() {
     Route::get('profile', 'ProfileController@profile');
     Route::get('profile/edit', 'ProfileController@editProfile');
     Route::post('profile', 'ProfileController@updateProfile');
-    Route::get('orders', 'ProfileController@orders');
+    Route::get('orders', 'ProfileController@myOrders');
 });
 
 

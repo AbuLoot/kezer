@@ -43,7 +43,6 @@
                 <a href="/catalog/{{ $sibling_category->slug.'/'.$sibling_category->id }}" class="list-group-item list-group-item-action">{{ $sibling_category->title }}</a>
               <?php endforeach; ?>
             </div><br>
-          <?php //if ($category->children && $category->children->count() > 0) : ?>
           <?php elseif ($category->children && $category->children->count() > 0) : ?>
             <div class="list-group custom-list-group">
               <?php foreach ($category->children as $child_category) : ?>

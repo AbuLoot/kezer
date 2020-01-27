@@ -31,6 +31,8 @@
   <!-- content-wraper start -->
   <div class="content-wraper">
     <div class="container">
+      @include('partials.alerts')
+
       <div class="row">
         <div class="col-lg-7 col-sm-12">
           <div class="contact-form">

@@ -25,6 +25,8 @@
 
   <div class="content-wraper">
     <div class="container">
+      @include('partials.alerts')
+
       <div class="row">
         <div class="col-12">
           @if ($products->count() > 0)
@@ -52,7 +54,7 @@
                         <td class="plantmore-product-quantity">
                           <div class="quantity">
                             <div class="cart-plus-minus">
-                              <input class="cart-plus-minus-box" name="quantity-{{ $product->id }}" id="{{ $product->id }}" value="1" data-price="{{ $product->price }}" type="text" size="4">
+                              <input class="cart-plus-minus-box" type="text" name="count[{{ $product->id }}]" id="{{ $product->id }}" data-price="{{ $product->price }}" size="4" min="1" value="1">
                               <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                               <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                             </div>
@@ -65,10 +67,8 @@
                   </tbody>
                 </table>
               </div>
-            </form>
 
-            <div class="checkout-details-wrapper mt--30">
-              <form action="/store-order" method="post">
+              <div class="checkout-details-wrapper mt--30">
                 <div class="row">
                   <div class="col-lg-6 col-md-6">
                     <div class="billing-details-wrap">
@@ -77,19 +77,31 @@
                         <div class="col-lg-6">
                           <p class="single-form-row">
                             <label>Имя <span class="required">*</span></label>
-                            <input type="text" placeholder="Имя *" name="name" id="name" value="{{ (old('name')) ? old('name') : '' }}" minlength="2" maxlength="40" required>
+                            <input type="text" name="name" id="name" placeholder="Имя *" value="<?php echo (\Auth::check()) ? \Auth::user()->name : old('name'); ?>" minlength="2" maxlength="40" required>
                           </p>
                         </div>
                         <div class="col-lg-6">
                           <p class="single-form-row">
                             <label>Фамилия <span class="required">*</span></label>
-                            <input type="text" placeholder="Фамилия *" name="surname" id="surname" value="{{ (old('surname')) ? old('surname') : '' }}" minlength="2" maxlength="40" required>
+                            <input type="text" name="surname" id="surname" placeholder="Фамилия *" value="<?php echo (\Auth::check()) ? \Auth::user()->surname : old('surname'); ?>" minlength="2" maxlength="40" required>
+                          </p>
+                        </div>
+                        <div class="col-lg-12">
+                          <p class="single-form-row">
+                            <label>Номер телефона <span class="required">*</span></label>
+                            <input type="tel" name="phone" id="phone" placeholder="Номер телефона *" value="<?php echo (\Auth::check()) ? \Auth::user()->phone : old('phone'); ?>" minlength="5" maxlength="20" required>
+                          </p>
+                        </div>
+                        <div class="col-lg-12">
+                          <p class="single-form-row">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" name="email" id="email" placeholder="Email *" value="<?php echo (\Auth::check()) ? \Auth::user()->email : old('email'); ?>" required>
                           </p>
                         </div>
                         <div class="col-lg-12">
                           <p class="single-form-row">
                             <label>Название компании</label>
-                            <input type="text" placeholder="Компания" name="company_name" id="company_name" value="{{ old('company_name') }}" minlength="2" maxlength="50" required>
+                            <input type="text" placeholder="Компания" name="company_name" id="company_name" value="{{ old('company_name') }}" minlength="2" maxlength="50" placeholder="Адрес *">
                           </p>
                         </div>
                         <div class="col-lg-12">
@@ -112,40 +124,30 @@
                         <div class="col-lg-12">
                           <p class="single-form-row">
                             <label>Адрес <span class="required">*</span></label>
-                            <input type="text" placeholder="Адрес *" name="address" id="address" value="{{ old('address') }}" minlength="2" maxlength="40" required>
+                            <input type="text" name="address" id="address" value="{{ old('address') }}" placeholder="Адрес *" minlength="2" maxlength="40" required>
                           </p>
                         </div>
                         <div class="col-lg-12">
                           <p class="single-form-row">
                             <label>Почтовый индекс</label>
-                            <input type="text" name="postcode">
+                            <input type="text" name="postcode" minlength="4" maxlength="40">
                           </p>
                         </div>
-                        <div class="col-lg-12">
-                          <p class="single-form-row">
-                            <label>Номер телефона</label>
-                            <input type="tel" placeholder="Телефона *" name="phone" id="phone" value="{{ (old('phone')) ? old('phone') : \Auth::user()->phone }}" minlength="5" maxlength="20" required>
-                          </p>
-                        </div>
-                        <div class="col-lg-12">
-                          <p class="single-form-row">
-                            <label>Email <span class="required">*</span></label>
-                            <input type="email" placeholder="Email *" name="email" id="email" value="{{ (old('email')) ? old('email') : \Auth::user()->email }}" required>
-                          </p>
-                        </div>
-                        <div class="col-lg-12">
-                          <div class="checkout-box-wrap">
-                            <label><input type="checkbox" id="chekout-box"> Создать аккаунт?</label>
-                            <div class="account-create single-form-row">
-                              <label class="creat-pass">Пароль <span>*</span></label>
-                              <input type="password" class="input-text">
+                        @empty(\Auth::user())
+                          <div class="col-lg-12">
+                            <div class="checkout-box-wrap">
+                              <label><input type="checkbox" name="create-account" id="chekout-box"> Создать аккаунт?</label>
+                              <div class="account-create single-form-row">
+                                <label class="creat-pass">Пароль <span>*</span></label>
+                                <input type="password" class="input-text">
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        @endempty
                         <div class="col-lg-12">
                           <p class="single-form-row m-0">
                             <label>Примечание к заказу</label>
-                            <textarea placeholder="Дополнительная информация..." class="data_1" rows="2" cols="5"></textarea>
+                            <textarea name="notes" placeholder="Дополнительная информация..." class="data_1" rows="2" cols="5"></textarea>
                           </p>
                         </div>
                       </div>
@@ -154,59 +156,53 @@
                   <div class="col-lg-6 col-md-6">
                     <div class="your-order-wrapper">
                       <h3 class="shoping-checkboxt-title">Ваш заказ</h3>
-                      <!-- your-order-wrap start-->
                       <div class="your-order-wrap">
                         <div class="your-order-table table-responsive">
                           <table>
-                            <tboot>
-                              <tr class="shipping">
-                                <th><b>Способ доставки</b></th>
-                                <td>
-                                  <ul>
-                                    @foreach(trans('orders.get') as $k => $v)
-                                      <li>
-                                        <label>
-                                          <input type="radio" name="get" value="{{ $v['key'] }}">
-                                          {{ $v['value'] }}
-                                        </label>
-                                      </li>
-                                    @endforeach
-                                  </ul>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th><b>Метод оплаты</b></th>
-                                <td>
-                                  <ul>
-                                    @foreach(trans('orders.pay') as $k => $v)
-                                      <li>
-                                        <label>
-                                          <input type="radio" name="pay" value="{{ $v['key'] }}">
-                                          {{ $v['value'] }}
-                                        </label>
-                                      </li>
-                                    @endforeach
-                                  </ul>
-                                </td>
-                              </tr>
-                              <tr class="order-total">
-                                <th><b>Итоговая сумма</b></th>
-                                <td><strong><span class="amount">{{ $products->sum('price') }}₸</span></strong></td>
-                              </tr>
-                            </tboot>
+                            <tr class="shipping">
+                              <th><b>Способ доставки</b></th>
+                              <td>
+                                <ul>
+                                  @foreach(trans('orders.get') as $k => $v)
+                                    <li>
+                                      <label>
+                                        <input type="radio" name="get" value="{{ $k }}"> {{ $v['value'] }}
+                                      </label>
+                                    </li>
+                                  @endforeach
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th><b>Метод оплаты</b></th>
+                              <td>
+                                <ul>
+                                  @foreach(trans('orders.pay') as $k => $v)
+                                    <li>
+                                      <label>
+                                        <input type="radio" name="pay" value="{{ $k }}"> {{ $v['value'] }}
+                                      </label>
+                                    </li>
+                                  @endforeach
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="order-total">
+                              <th><b>Итоговая сумма</b></th>
+                              <td><strong><span class="amount">{{ $products->sum('price') }}₸</span></strong></td>
+                            </tr>
                           </table>
 
                           <div class="order-button-payment">
                             <input type="submit" value="Разместить заказ">
                           </div>
                         </div>
-                        
                       </div>
                     </div>
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           @else
             <h2>Корзина пуста</h2>
             <p><a href="/" class="btn btn-lg btn-primary">Перейти к покупкам</a></p>

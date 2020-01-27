@@ -9,15 +9,16 @@ use Auth;
 use App\User;
 use App\City;
 use App\Order;
+use App\Country;
 use App\Http\Requests;
 
 class ProfileController extends Controller
 {
-    public function profile()
+    public function profile(Request $request)
     {
         $user = Auth::user();
 
-        return view('shop.user.profile', compact('user'));
+        return view('account.profile', compact('user'));
     }
 
     public function orders(Request $request)
@@ -31,7 +32,7 @@ class ProfileController extends Controller
             $products = Product::whereIn('id', $data_id->keys())->get();
         }
 
-        return view('pages.order', compact('products', 'countries'));
+        return view('account.order', compact('products', 'countries'));
     }
 
     public function myOrders()
@@ -39,18 +40,19 @@ class ProfileController extends Controller
         $user = Auth::user();
         $orders = $user->orders()->paginate(10);
 
-        return view('shop.user.orders', compact('user', 'orders'));
+        return view('account.orders', compact('user', 'orders'));
     }
 
     public function editProfile()
     {
+        $countries = Country::all();
         $user = Auth::user();
         $cities = City::orderBy('sort_id')->get();
 
         // $date = [];
         // list($date['year'], $date['month'], $date['day']) = explode('-', $user->profile->birthday);
 
-        return view('shop.user.profile-edit', compact('user', 'cities'));
+        return view('account.profile-edit', compact('user', 'cities', 'countries'));
     }
 
     public function updateProfile(Request $request)
@@ -63,7 +65,6 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
-
         $user->surname = $request->surname;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -72,7 +73,8 @@ class ProfileController extends Controller
         $user->profile->phone = $request->phone;
         $user->profile->city_id = $request->city_id;
         $user->profile->about = $request->about;
-        $user->profile->sex = $request->sex;
+        if (isset($request->sex)) $user->profile->sex = $request->sex;
+        $user->profile->birthday = $request->birthday;
         $user->profile->save();
 
         return redirect('/profile')->with('status', 'Запись обновлена!');

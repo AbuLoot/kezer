@@ -245,7 +245,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
 
-            $order = count($images);
+            $order = (!empty($images)) ? count($images) : 1;
             $introImage = null;
 
             foreach ($request->file('images') as $key => $image)

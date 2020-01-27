@@ -115,20 +115,20 @@ class CartController extends Controller
         $order = new Order;
         $order->user_id = ((Auth::check())) ? Auth::id() : 0;
         $order->name = $request->name;
-        $order->email = $request->email;
         $order->phone = $request->phone;
+        $order->email = $request->email;
         $order->company_name = $request->company_name;
-        $order->data_1 = $request->data_1;
-        $order->data_2 = '';
+        $order->data_1 = $request->notes;
+        $order->data_2 = $request->postcode;
         $order->data_3 = '';
         $order->legal_address = '';
-        $order->address = $request->address;
         $order->city_id = ($request->city_id) ? $request->city_id : 0;
-        $order->delivery = trans('orders.get.'.$request->get);
-        $order->payment_type = trans('orders.pay.'.$request->pay);
+        $order->address = $request->address;
         $order->count = serialize($request->count);
         $order->price = $products->sum('price');
         $order->amount = $sumPriceProducts;
+        $order->delivery = $request->get;
+        $order->payment_type = $request->pay;
         $order->save();
 
         $order->products()->attach($data_id->keys());
@@ -136,7 +136,7 @@ class CartController extends Controller
         $name = $request->name;
 
         // Email subject
-        $subject = "Kezer - novaya zayavka ot $request->name";
+        $subject = "Kezer - Новая заявка от $request->name";
 
         $headers = "From: info@kezer.kz \r\n" .
                    "MIME-Version: 1.0" . "\r\n" . 

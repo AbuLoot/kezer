@@ -15,7 +15,7 @@ class AuthCustomController extends Controller
 {
     public function getLogin()
     {
-        return view('signin');
+        return view('account.login');
     }
 
     public function postLogin(Request $request)
@@ -24,7 +24,7 @@ class AuthCustomController extends Controller
             'email' => 'required|min:8|max:80'
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->back();
         }
         else {
@@ -32,9 +32,13 @@ class AuthCustomController extends Controller
         }
     }
 
+    public function getRegister()
+    {
+        return view('account.register');
+    }
     protected function postRegister(Request $request)
     {
-        $this->validate($request, [
+        $validatedData = $this->validate($request, [
             // 'surname' => 'required|min:2|max:40',
             'name' => 'required|min:2|max:40',
             // 'phone' => 'required|min:11|max:11|unique:users',
@@ -43,8 +47,6 @@ class AuthCustomController extends Controller
             'password' => 'required|confirmed|min:6|max:255',
             // 'rules' => 'accepted'
         ]);
-
-        dd($request->all());
 
         $user = new User();
         $user->name = $request->name;
@@ -66,7 +68,7 @@ class AuthCustomController extends Controller
             // $profile->sex = $request['sex'];
             $profile->save();
 
-            return redirect('/login')->withInput()->withInfo('Регистрация успешно завершина. Войдите через логин и пароль.');
+            return redirect('/cs-login')->withInput()->withInfo('Регистрация успешно завершина. Войдите через email и пароль.');
         }
         else {
             return redirect()->back()->withInput()->withErrors('Неверные данные');

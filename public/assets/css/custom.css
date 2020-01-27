@@ -30,6 +30,8 @@
 }
 .custom-list-group .list-group-item {
   border: 1px solid #ededed;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .custom-list-group .list-group-item:first-child {
   border-top-right-radius: 0;

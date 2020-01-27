@@ -36,9 +36,10 @@
           <div class="col-lg-8 order-2 order-lg-1">
             <div class="top-left-wrap">
               <ul class="phone-email-wrap">
-                <li><a href="tel:{{ $phones[0] }}"><i class="fa fa-phone"></i> {{ $phones[0] }}</a></li>
-                <li><a href="tel:{{ str_replace(' ', '', $phones[1]) }}"><i class="fa fa-phone"></i> {{ $phones[1] }}</a></li>
-                <li><a href="mailto:{{ $phones[1] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></li>
+                @foreach($phones as $phone)
+                  <li><a href="tel:{{ $phone }}"><i class="fa fa-phone"></i> {{ $phone }}</a></li>
+                @endforeach
+                <li><a href="mailto:{{ $data_email['value'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></li>
               </ul>
               <ul class="link-top">
                 {!! $contacts->content !!}
@@ -71,16 +72,25 @@
                   </div>
                 </li> -->
                 <li class="setting-top list-inline-item">
-                  <div class="btn-group">
-                    <button class="dropdown-toggle"><i class="fa fa-user-circle-o"></i> Setting <i class="fa fa-angle-down"></i></button>
-                    <div class="dropdown-menu">
-                      <ul>
-                        <li><a href="my-account.html">My account</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="/login-cs">Sign in</a></li>
-                      </ul>
+                  @guest
+                    <a href="/cs-login">Войти</a>
+                  @else
+                    <div class="btn-group">
+                      <button class="dropdown-toggle"><i class="fa fa-user-circle-o"></i> {{ Auth::user()->name }} <i class="fa fa-angle-down"></i></button>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <li><a href="/profile">Мой аккаунт</a></li>
+                          <li><a href="/orders">Мои заказы</a></li>
+                          <li>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Выйти') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                              @csrf
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
+                  @endguest
                 </li>
               </ul>
             </div>
@@ -111,25 +121,25 @@
                           <a href="/catalog/{{ $category->slug .'/'. $category->id }}" class="text-uppercase"><b>{{ $category->title }} <i class="fa fa-angle-down"></i></b></a>
                           <?php if ($category->descendants->count() > 10) : ?>
                             <ul class="mega-menu custom-menu-">
-                              <?php $traverse($category->children, $category->slug); ?>
+                              <?php $traverse($category->children, $category->slug.'/'); ?>
                             </ul>
                           <?php else : ?>
                             <ul class="sub-menu">
-                              <?php $traverse($category->children, $category->slug); ?>
+                              <?php $traverse($category->children, $category->slug.'/'); ?>
                             </ul>
                           <?php endif; ?>
                         </li>
                       <?php elseif ($category->descendants->count() >= 1) : ?>
                         <li>
-                          <a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}"><b>{{ $category->title }}</b></a>
+                          <a href="/catalog/{{ $parent_slug . $category->slug .'/'. $category->id }}"><b>{{ $category->title }}</b></a>
                           <ul>
-                            <?php $traverse($category->children, $category->slug); ?>
+                            <?php $traverse($category->children, $category->slug.'/'); ?>
                           </ul>
                         </li>
                       <?php elseif ($category->ancestors->count() == 2) : ?>
-                        <li><a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}">{{ $category->title }}</a></li>
+                        <li><a href="/catalog/{{ $parent_slug . $category->slug .'/'. $category->id }}">{{ $category->title }}</a></li>
                       <?php else : ?>
-                        <li><a href="/catalog/{{ $parent_slug .'/'. $category->slug .'/'. $category->id }}" class="text-uppercase"><b>{{ $category->title }}</b></a></li>
+                        <li><a href="/catalog/{{ $parent_slug . $category->slug .'/'. $category->id }}" class="text-uppercase"><b>{{ $category->title }}</b></a></li>
                       <?php endif; ?>
                     <?php endforeach; ?>
                   <?php }; ?>
@@ -197,10 +207,9 @@
               <div class="desc_footer">
                 <p><i class="fa fa-home"></i> <span>{{ $data_address['value'] }}</span> </p>
                 @foreach($phones as $phone)
-                  <?php $href = str_replace(' ', '', $phone); ?>
-                  <p><a href="tel:{{ $href }}" class="text-white"><i class="fa fa-phone"></i> <span>{{ $phone }}</span></a></p>
+                  <p><a href="tel:{{ $phone }}" class="text-white"><i class="fa fa-phone"></i> <span>{{ $phone }}</span></a></p>
                 @endforeach
-                <p><a href="mailto:{{ $phones[1] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></p>
+                <p><a href="mailto:{{ $data_email['key'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></p>
                 <div class="link-follow-footer">
                   <ul class="footer-social-share">
                     {!! $contacts->content !!}

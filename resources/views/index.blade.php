@@ -44,22 +44,13 @@
     </div>
   </div>
 
-  <!-- Our Advantages -->
-  @if($advantages != NULL)
-    <div class="our-services-area section-pt-70">
-      <div class="container">
-        {!! $advantages->content !!}
-      </div>
-    </div>
-  @endif
-
   <!-- Categories List Post area-->
   @if($relevant_categories->isNotEmpty())
-    <div class="poslistcategories-area mt--30">
+    <div class="poslistcategories-area mt--30-">
       <div class="container-fluid plr-30">
         <div class="row">
           @foreach($relevant_categories as $relevant_category)
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-6">
               <div class="categories-list-post-item mt--30">
                  <img src="/filemanager/{{ $relevant_category->image }}" alt="{{ $relevant_category->title }}">
                  <a href="/catalog/{{ $relevant_category->slug .'/'. $relevant_category->id }}" class="category-inner">{{ $relevant_category->title }}</a>
@@ -126,7 +117,7 @@
         </div>
       </div>
       <div class="row custom-row">
-        @foreach($mode_best->products->where('status', 1)->take(12) as $best_product)
+        @foreach($mode_best->products->where('status', 1)->take(8) as $best_product)
           <div class="col-6 col-md-3 col-lg-3">
             <div class="single-product-wrap">
               <div class="product-image">
@@ -173,6 +164,15 @@
             </div>
           @endforeach
         </div>
+      </div>
+    </div>
+  @endif
+
+  <!-- Our Advantages -->
+  @if($advantages != NULL)
+    <div class="our-services-area section-pt-70">
+      <div class="container">
+        {!! $advantages->content !!}
       </div>
     </div>
   @endif
