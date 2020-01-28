@@ -694,17 +694,23 @@
         time: 1000
     });
 
+      // MATERIAL BUTTON TOGGLE
+      $('.material-button-toggle').on("click", function () {
+          $(this).toggleClass('open');
+          $('.option').toggleClass('scale-on');
+      });
+
     /*--
         ScrollUp Active
     -----------------------------------*/
-    $.scrollUp({
-        scrollText: '<i class="fa fa-angle-double-up"></i>',
-        easingType: 'linear',
-        scrollSpeed: 900,
-        animation: 'fade'
-    });   
-    
-    
+    // $.scrollUp({
+    //     scrollText: '<i class="fa fa-angle-double-up"></i>',
+    //     easingType: 'linear',
+    //     scrollSpeed: 900,
+    //     animation: 'fade'
+    // });   
+
+
     /*------------------------------------
         DateCountdown active
     ------------------------------------- */

@@ -33,20 +33,22 @@
     <div class="header-top bg-black">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 order-2 order-lg-1 d-none d-sm-block">
+          <div class="col-lg-8 col-6 order-1 order-lg-1">
             <div class="top-left-wrap">
-              <ul class="phone-email-wrap">
-                @foreach($phones as $phone)
-                  <li><a href="tel:{{ $phone }}"><i class="fa fa-phone"></i> {{ $phone }}</a></li>
-                @endforeach
-                <li><a href="mailto:{{ $data_email['value'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></li>
-              </ul>
+              <div class="d-none d-sm-block">
+                <ul class="phone-email-wrap">
+                  @foreach($phones as $phone)
+                    <li><a href="tel:{{ $phone }}"><i class="fa fa-phone"></i> {{ $phone }}</a></li>
+                  @endforeach
+                  <li><a href="mailto:{{ $data_email['value'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></li>
+                </ul>
+              </div>
               <ul class="link-top">
                 {!! $contacts->content !!}
               </ul>
             </div>
           </div>
-          <div class="col-lg-4 order-1 order-lg-2">
+          <div class="col-lg-4 col-6 order-2 order-lg-2">
             <div class="top-selector-wrapper">
               <ul class="single-top-selector">
                 <li class="setting-top list-inline-item">
@@ -163,6 +165,44 @@
   <!-- Content -->
   @yield('content')
 
+  <!-- Widget contact buttons -->
+  <div class="material-button-anim">
+    <ul class="list-inline" id="options">
+      <li class="option">
+        <button class="material-button option1 bg-whatsapp" type="button">
+          <a href="whatsapp://send?phone={{ $phones[0] }}" target="_blank">
+            <!-- <span class="fa fa-whatsapp" aria-hidden="true"></span> -->
+            <img src="/img/whatsapp.png">
+          </a>
+        </button>
+      </li>
+      <li class="option">
+        <button class="material-button option2 bg-telegram" type="button">
+          <a href="tg://resolve?domain=kezerbot" target="_blank">
+            <!-- <span class="fa fa-telegram" aria-hidden="true"></span> -->
+            <img src="/img/telegram.png">
+          </a>
+        </button>
+      </li>
+      <li class="option">
+        <button class="material-button option3 bg-ripple" type="button">
+          <a href="tel:{{ $phones[0] }}" target="_blank"><span class="fa fa-phone" aria-hidden="true"></span></a>
+        </button>
+      </li>
+      <li class="option">
+        <button class="material-button option4" type="button">
+          <a href="mailto:{{ $data_email['value'] }}" target="_blank"><span class="fa fa-envelope" aria-hidden="true"></span></a>
+        </button>
+      </li>
+    </ul>
+    <button class="material-button material-button-toggle pinkBg" type="button">
+      <span class="fa fa-user-circle" aria-hidden="true"></span>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+    </button>
+  </div>
+
   <!-- Footer Aare Start -->
   <footer class="footer-area mt--100">
     <!-- footer-top start -->
@@ -192,7 +232,7 @@
                 @foreach($phones as $phone)
                   <p><a href="tel:{{ $phone }}" class="text-white"><i class="fa fa-phone"></i> <span>{{ $phone }}</span></a></p>
                 @endforeach
-                <p><a href="mailto:{{ $data_email['key'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></p>
+                <p><a href="mailto:{{ $data_email['value'] }}"><i class="fa fa-envelope-open-o"></i> {{ $data_email['value'] }}</a></p>
                 <div class="link-follow-footer">
                   <ul class="footer-social-share">
                     {!! $contacts->content !!}
@@ -235,7 +275,6 @@
       </div>
     </div>
   </footer>
-
 </div>
 
 <!-- JS

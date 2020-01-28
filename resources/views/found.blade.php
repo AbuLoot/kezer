@@ -40,9 +40,6 @@
                     <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
                   @endif
                 @endforeach
-                <div class="quick_view">
-                  <a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-search"></i></a>
-                </div>
               </div>
               <div class="product-content">
                 <h3><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></h3>
