@@ -2,11 +2,11 @@
 
 
 // Authentication routes...
-Route::get('cs-login', 'Auth\AuthCustomController@getLogin');
+Route::get('cs-login', 'Auth\AuthCustomController@getLogin')->middleware('guest');;
 Route::post('cs-login', 'Auth\AuthCustomController@postLogin');
 
 // Registration routes...
-Route::get('cs-register', 'Auth\AuthCustomController@getRegister');
+Route::get('cs-register', 'Auth\AuthCustomController@getRegister')->middleware('guest');;
 Route::post('cs-register', 'Auth\AuthCustomController@postRegister');
 // Route::get('confirm/{token}', 'Auth\AuthCustomController@confirm');
 

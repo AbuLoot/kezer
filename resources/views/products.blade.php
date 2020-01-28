@@ -37,28 +37,21 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 order-2 order-lg-1">
-          <?php if ($category->ancestors->count() == 2) : ?>
-            <div class="list-group custom-list-group">
-              <?php foreach ($category->getSiblings() as $sibling_category) : ?>
-                <a href="/catalog/{{ $sibling_category->slug.'/'.$sibling_category->id }}" class="list-group-item list-group-item-action">{{ $sibling_category->title }}</a>
-              <?php endforeach; ?>
-            </div><br>
-          <?php elseif ($category->children && $category->children->count() > 0) : ?>
-            <div class="list-group custom-list-group">
-              <?php foreach ($category->children as $child_category) : ?>
-                <a href="/catalog/{{ $child_category->slug.'/'.$child_category->id }}" class="list-group-item list-group-item-action">{{ $child_category->title }}</a>
-              <?php endforeach; ?>
-            </div><br>
-          <?php endif; ?>
-          <!-- <div class="sidebar-categores-box">
-            <div class="sidebar-title">
-              <h2>{{-- $category->title --}}</h2>
-            </div>
-            <div class="category-sub-menu">
-              <ul>
-              </ul>
-            </div>
-          </div> -->
+          <div class="d-md-none d-lg-block">
+            <?php if ($category->ancestors->count() == 2) : ?>
+              <div class="list-group custom-list-group">
+                <?php foreach ($category->getSiblings() as $sibling_category) : ?>
+                  <a href="/catalog/{{ $sibling_category->slug.'/'.$sibling_category->id }}" class="list-group-item list-group-item-action">{{ $sibling_category->title }}</a>
+                <?php endforeach; ?>
+              </div><br>
+            <?php elseif ($category->children && $category->children->count() > 0) : ?>
+              <div class="list-group custom-list-group">
+                <?php foreach ($category->children as $child_category) : ?>
+                  <a href="/catalog/{{ $child_category->slug.'/'.$child_category->id }}" class="list-group-item list-group-item-action">{{ $child_category->title }}</a>
+                <?php endforeach; ?>
+              </div><br>
+            <?php endif; ?>
+          </div>
           <div class="sidebar-categores-box">
             <div class="sidebar-title">
               <h2>Фильтр</h2>
@@ -81,7 +74,7 @@
                   </div>
                 </div>
               @endforeach
-              <div class="filter-sub-area">
+              <!-- <div class="filter-sub-area">
                 <h5 class="filter-sub-titel">Color</h5>
                 <div class="color-categoriy">
                   <ul>
@@ -91,17 +84,7 @@
                     <li><span class="Blue"></span><a href="#">Blue  (2) </a></li>
                   </ul>
                 </div>
-              </div>
-              <div class="filter-sub-area">
-                <h5 class="filter-sub-titel">Compositions</h5>
-                <div class="categori-checkbox">
-                  <ul>
-                    <li><input type="checkbox" checked="checked" name="product-categori"><a href="#">Cotton (5)</a></li>
-                    <li><input type="checkbox" name="product-categori"><a href="#">Polyester (4)</a></li>
-                    <li><input type="checkbox" name="product-categori"><a href="#">Viscose (4)</a></li>
-                  </ul>
-                </div>
-               </div>
+              </div> -->
             </form>
           </div>
           <div class="shop-banner">
@@ -113,15 +96,7 @@
         <div class="col-lg-9 order-1 order-lg-2">
           <div class="shop-top-bar mt-95">
             <div class="shop-bar-inner">
-              <div class="product-view-mode">
-                <ul class="nav shop-item-filter-list" role="tablist">
-                  <li class="active"><a class="active" data-toggle="tab" href="#grid-view"><i class="fa fa-th"></i></a></li>
-                  <li><a data-toggle="tab"  href="#list-view"><i class="fa fa-th-list"></i></a></li>
-                </ul>
-              </div>
-              <div class="toolbar-amount">
-                <span>Товаров от {{ $products->firstItem().' до '.$products->lastItem().' из '.$products->total() }}</span>
-              </div>
+              <span>Товаров от {{ $products->firstItem().' до '.$products->lastItem().' из '.$products->total() }}</span>
             </div>
             <div class="product-select-box">
               <div class="product-short">
@@ -136,7 +111,21 @@
           </div>
 
           <div class="shop-products-wrapper" id="products">
-
+            <div class="mt--15 d-block d-sm-none">
+              <?php if ($category->ancestors->count() == 2) : ?>
+                <div class="list-group custom-list-group">
+                  <?php foreach ($category->getSiblings() as $sibling_category) : ?>
+                    <a href="/catalog/{{ $sibling_category->slug.'/'.$sibling_category->id }}" class="list-group-item list-group-item-action">{{ $sibling_category->title }}</a>
+                  <?php endforeach; ?>
+                </div><br>
+              <?php elseif ($category->children && $category->children->count() > 0) : ?>
+                <div class="list-group custom-list-group">
+                  <?php foreach ($category->children as $child_category) : ?>
+                    <a href="/catalog/{{ $child_category->slug.'/'.$child_category->id }}" class="list-group-item list-group-item-action">{{ $child_category->title }}</a>
+                  <?php endforeach; ?>
+                </div><br>
+              <?php endif; ?>
+            </div>
             <div class="row custom-row">
               @foreach ($products as $product)
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-30">
@@ -144,8 +133,8 @@
                     <div class="product-image">
                       <a href="/p/{{ $product->slug }}"><img src="/img/products/{{ $product->path.'/'.$product->image }}" alt="{{ $product->title }}"></a>
                       @foreach($product->modes as $m)
-                        @if(in_array($m->slug, ['recommend', 'novelty', 'best-price', 'stock', 'plus-gift']))
-                          <span class="label-product label-new">new</span>
+                        @if(in_array($m->slug, ['recommend', 'new', 'best-price', 'stock', 'plus-gift']))
+                          <span class="label-product label-new">Новинка</span>
                           <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
                         @endif
                       @endforeach

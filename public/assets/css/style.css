@@ -2549,13 +2549,13 @@ body.box-body {
 }
 .categories-list-post-item .category-inner {
   position: absolute;
-  top: 50%;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   background: #ddd;
-  padding: 0px 33px;
-  line-height: 61px;
-  background: #fff;
+  padding: 0px 15px;
+  line-height: 30px;
+  background: rgba(255, 255, 255, 0.75);
   font-weight: 500;
   color: #323232;
   font-size: 14px;

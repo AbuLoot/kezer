@@ -39,33 +39,33 @@
                       @csrf
                     </form>
                   </li>
-                </ul>
+                </ul><br>
               </div>
               <div class="col-md-12 col-lg-10">
                 <h3>Информация</h3>
                 <dl class="row">
-                  <dt class="col-sm-3">Имя</dt>
-                  <dd class="col-sm-9">{{ $user->surname . ' ' . $user->name }}</dd>
+                  <dt class="col-sm-3 col-4">Имя</dt>
+                  <dd class="col-sm-9 col-8">{{ $user->surname . ' ' . $user->name }}</dd>
                 </dl>
                 <dl class="row">
-                  <dt class="col-sm-3">Email</dt>
-                  <dd class="col-sm-9">{{ $user->email }}</dd>
+                  <dt class="col-sm-3 col-4">Email</dt>
+                  <dd class="col-sm-9 col-8">{{ $user->email }}</dd>
                 </dl>
                 <dl class="row">
-                  <dt class="col-sm-3">Номер телефона</dt>
-                  <dd class="col-sm-9">{{ $user->profile->phone }}</dd>
+                  <dt class="col-sm-3 col-4">Номер телефона</dt>
+                  <dd class="col-sm-9 col-8">{{ $user->profile->phone }}</dd>
                 </dl>
                 <dl class="row">
-                  <dt class="col-sm-3">Обо мне</dt>
-                  <dd class="col-sm-9">{{ $user->profile->about }}</dd>
+                  <dt class="col-sm-3 col-4">Обо мне</dt>
+                  <dd class="col-sm-9 col-8">{{ $user->profile->about }}</dd>
                 </dl>
                 <dl class="row">
-                  <dt class="col-sm-3">Город</dt>
-                  <dd class="col-sm-9">{{ $user->profile->city->title }}</dd>
+                  <dt class="col-sm-3 col-4">Город</dt>
+                  <dd class="col-sm-9 col-8">{{ $user->profile->city->title }}</dd>
                 </dl>
                 <dl class="row">
-                  <dt class="col-sm-3">Пол</dt>
-                  <dd class="col-sm-9">{{ ($user->profile->sex == "woman") ? 'Женщина' : 'Мужчина' }}</dd>
+                  <dt class="col-sm-3 col-4">Пол</dt>
+                  <dd class="col-sm-9 col-8">{{ ($user->profile->sex == "woman") ? 'Женщина' : 'Мужчина' }}</dd>
                 </dl>
                 <a href="/profile/edit" class="btn">Редактировать</a>
               </div>

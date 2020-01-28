@@ -31,7 +31,7 @@
             <div class="row">
               <div class="col-md-12 col-lg-2">
                 <ul class="nav flex-column dashboard-list">
-                  <li><a href="#" class="nav-link"><b>Мой аккаунт</b></a></li>
+                  <li><a href="/profile" class="nav-link">Мой аккаунт</a></li>
                   <li> <a href="/orders" class="nav-link">Заказы</a></li>
                   <li>
                     <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Выйти') }}</a>
@@ -39,7 +39,7 @@
                       @csrf
                     </form>
                   </li>
-                </ul>
+                </ul><br>
               </div>
               <div class="col-md-8 col-lg-8">
                 <h3>Редактировать</h3>
@@ -95,7 +95,7 @@
                         </p>
                       </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-sm-6">
                         <label><b>Новый пароль</b></label>
                         <input type="password" name="password" id="password" minlength="6" maxlength="60" placeholder="Придумайте пароль">
@@ -104,7 +104,7 @@
                         <label><b>Введите пароль повторно</b></label>
                         <input type="password" name="password_confirmation" id="password-confirm" minlength="6" maxlength="60" placeholder="Введите пароль повторно">
                       </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                       <div class="col-sm-6">
                         <label><b>Пол</b></label>

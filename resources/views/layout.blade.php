@@ -33,7 +33,7 @@
     <div class="header-top bg-black">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 order-2 order-lg-1">
+          <div class="col-lg-8 order-2 order-lg-1 d-none d-sm-block">
             <div class="top-left-wrap">
               <ul class="phone-email-wrap">
                 @foreach($phones as $phone)
@@ -49,28 +49,6 @@
           <div class="col-lg-4 order-1 order-lg-2">
             <div class="top-selector-wrapper">
               <ul class="single-top-selector">
-                <!-- <li class="currency list-inline-item">
-                  <div class="btn-group">
-                    <button class="dropdown-toggle"> USD $ <i class="fa fa-angle-down"></i></button>
-                    <div class="dropdown-menu">
-                      <ul>
-                         <li><a href="#">Euro €</a></li>
-                         <li><a href="#" class="current">USD $</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </li> -->
-                <!-- <li class="language list-inline-item">
-                  <div class="btn-group">
-                    <button class="dropdown-toggle"><img src="/assets/images/icon/la-1.jpg" alt="">  English <i class="fa fa-angle-down"></i></button>
-                    <div class="dropdown-menu">
-                      <ul>
-                         <li><a href="#"><img src="/assets/images/icon/la-1.jpg" alt=""> English</a></li>
-                        <li><a href="#"><img src="/assets/images/icon/la-2.jpg" alt=""> Français</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </li> -->
                 <li class="setting-top list-inline-item">
                   @guest
                     <a href="/cs-login">Войти</a>
@@ -144,6 +122,11 @@
                     <?php endforeach; ?>
                   <?php }; ?>
                   <?php $traverse($categories); ?>
+                  @guest
+                    <li><a href="/cs-login" class="text-uppercase"><b>Войти</b></a></li>
+                  @else
+                    <li><a href="/profile" class="text-uppercase d-none d-sm-block d-md-none">Мой аккаунт</a></li>
+                  @endguest
                 </ul>
               </nav>
             </div>

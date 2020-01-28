@@ -39,7 +39,7 @@
                       @csrf
                     </form>
                   </li>
-                </ul>
+                </ul><br>
               </div>
               <div class="col-md-12 col-lg-10">
                 <h3>Заказы</h3>
@@ -48,7 +48,7 @@
                     <thead>
                       <tr>
                         <th>Номер</th>
-                        <th>Картинка</th>
+                        <th>Товар</th>
                         <th>Регион</th>
                         <th>Сумма</th>
                         <th>Статус</th>
@@ -62,9 +62,11 @@
                             <?php $countAllProducts = unserialize($order->count); $i = 0; ?>
                             @foreach ($countAllProducts as $id => $countProduct)
                               @if (isset($order->products[$i]) AND $order->products[$i]->id == $id)
-                                <div class="media">
-                                  <img src="/img/products/{{ $order->products[$i]->path.'/'.$order->products[$i]->image }}" class="mr-3" style="width:90px;height:auto;">
-                                  <div class="media-body">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <img src="/img/products/{{ $order->products[$i]->path.'/'.$order->products[$i]->image }}" class="mr-3" style="width:90px;height:auto;">
+                                  </div>
+                                  <div class="col-md-8">
                                     <h5 class="mt-0"><a href="/p/{{ $order->products[$i]->id.'-'.$order->products[$i]->slug }}">{{ $order->products[$i]->title }}</a></h5>
                                     {{ $order->products[$i]->price }}〒. <span>{{ $countProduct . ' шт.' }}</span>
                                   </div>
@@ -73,8 +75,8 @@
                               <?php $i++; ?>
                             @endforeach
                           </td>
-                          <td>{{ $order->city->country->title.', '.$order->city->title.', '.$order->address }}</td>
                           <td><span class="amount">{{ $order->price }}</span>〒</td>
+                          <td>{{ $order->city->country->title.', '.$order->city->title.', '.$order->address }}</td>
                           <td>{{ trans('orders.statuses.'.$order->status) }}</td>
                         </tr>
                       @empty

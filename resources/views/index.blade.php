@@ -14,44 +14,47 @@
 
   <!-- Hero Slider -->
   <div class="hero-slider hero-slider-one">
-    @foreach($slide_items as $key => $slide_item)
-      <div class="single-slide" style="background-image: url(img/slide/{{ $slide_item->image }})">
+    @if($slide_items->isNotEmpty())
+      @foreach($slide_items as $key => $slide_item)
+        <div class="single-slide" style="background-image: url(img/slide/{{ $slide_item->image }})">
+          <div class="hero-content-one container">
+            <div class="row">
+              <div class="col"> 
+                <div class="slider-text-info text-white">
+                  <h2 class="display-4" style="color: {{ $slide_item->color }};">{{ $slide_item->title }}</h2>
+                  <h3 style="color: {{ $slide_item->color }};">{{ $slide_item->marketing }}</h3>
+                  <a href="/{{ $slide_item->link }}" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Подробнее</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    @else
+      <div class="single-slide" style="background-image: url(img/slide/1.png)">
         <div class="hero-content-one container">
           <div class="row">
             <div class="col"> 
-              <div class="slider-text-info text-white">
-                <h2>{{ $slide_item->title }}</h2>
-                <p>{{ $slide_item->marketing }}</p>
-                <a href="/{{ $slide_item->link }}" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Shop Now</span></a>
+              <div class="slider-text-info">
+                <h2 class="display-4 text-white">Сіздің Туркиядағы сенімді серіктесіңіз</h2>
+                <h2 class="text-white">Ваш надежный партнер в Турции</h2>
+                <!-- <a href="/" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Подробнее</span></a> -->
               </div>
             </div>
           </div>
         </div>
       </div>
-    @endforeach
-    <div class="single-slide" style="background-image: url(img/slide/1.png)">
-      <div class="hero-content-one container">
-        <div class="row">
-          <div class="col"> 
-            <div class="slider-text-info">
-              <h1 class="display-4 text-white">Сіздің Туркиядағы сенімді серіктесіңіз</h1>
-              <h2 class="text-white">Ваш надежный партнер в Турции</h2>
-              <!-- <a href="/" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Подробнее</span></a> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    @endif
   </div>
 
   <!-- Categories List Post area-->
   @if($relevant_categories->isNotEmpty())
-    <div class="poslistcategories-area mt--30-">
-      <div class="container-fluid plr-30">
-        <div class="row">
+    <div class="poslistcategories-area mt--15">
+      <div class="container-fluid plr-30-">
+        <div class="row custom-row">
           @foreach($relevant_categories as $relevant_category)
             <div class="col-lg-4 col-6">
-              <div class="categories-list-post-item mt--30">
+              <div class="categories-list-post-item mt--15">
                  <img src="/filemanager/{{ $relevant_category->image }}" alt="{{ $relevant_category->title }}">
                  <a href="/catalog/{{ $relevant_category->slug .'/'. $relevant_category->id }}" class="category-inner">{{ $relevant_category->title }}</a>
               </div>
@@ -80,8 +83,8 @@
               <div class="product-image">
                 <a href="/p/{{ $new_product->slug }}"><img src="/img/products/{{ $new_product->path.'/'.$new_product->image }}" alt="{{ $new_product->title }}"></a>
                 @foreach($new_product->modes as $m)
-                  @if(in_array($m->slug, ['recommend', 'novelty', 'best-price', 'stock', 'plus-gift']))
-                    <span class="label-product label-new">new</span>
+                  @if(in_array($m->slug, ['recommend', 'new', 'best-price', 'stock', 'plus-gift']))
+                    <span class="label-product label-new">Новинка</span>
                     <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
                   @endif
                 @endforeach
@@ -123,8 +126,8 @@
               <div class="product-image">
                 <a href="/p/{{ $best_product->slug }}"><img src="/img/products/{{ $best_product->path.'/'.$best_product->image }}" alt="{{ $best_product->title }}"></a>
                 @foreach($best_product->modes as $m)
-                  @if(in_array($m->slug, ['recommend', 'novelty', 'best-price', 'stock', 'plus-gift']))
-                    <span class="label-product label-new">new</span>
+                  @if(in_array($m->slug, ['recommend', 'new', 'best-price', 'stock', 'plus-gift']))
+                    <span class="label-product label-new">Новинка</span>
                     <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
                   @endif
                 @endforeach
