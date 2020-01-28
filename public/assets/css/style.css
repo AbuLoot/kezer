@@ -1155,7 +1155,7 @@ body.box-body {
 }
 @media only screen and (max-width: 767px) {
   .header-top .top-left-wrap .link-top {
-    justify-content: center;
+    /*justify-content: center;*/
   }
 }
 .header-top .top-left-wrap .link-top li {
