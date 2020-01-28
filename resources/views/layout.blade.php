@@ -123,7 +123,7 @@
                   <?php }; ?>
                   <?php $traverse($categories); ?>
                   @guest
-                    <li><a href="/cs-login" class="text-uppercase"><b>Войти</b></a></li>
+                    <li><a href="/cs-login" class="text-uppercase d-none d-sm-block d-md-none"><b>Войти</b></a></li>
                   @else
                     <li><a href="/profile" class="text-uppercase d-none d-sm-block d-md-none">Мой аккаунт</a></li>
                   @endguest
