@@ -93,7 +93,7 @@
                     <div class="quantity">
                       <label>Количество</label>
                       <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text" size="4">
+                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="{{ $product->id }}" data-price="{{ $product->price }}" size="4" min="1" value="1">
                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                       </div>

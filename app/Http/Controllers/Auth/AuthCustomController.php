@@ -25,10 +25,10 @@ class AuthCustomController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->back();
+            return redirect('/');
         }
         else {
-            return redirect()->back()->withInput()->withWarning('Не правильный логин или пароль или не подтвержден номер телефона.');
+            return redirect()->back()->withInput()->withWarning('Не правильный логин или пароль.');
         }
     }
 
