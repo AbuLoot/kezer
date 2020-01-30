@@ -20,6 +20,7 @@ class ShopController extends Controller
 {
     public function index()
     {
+        $page = Page::where('slug', '/')->first();
         // $mode_top = Mode::where('slug', 'top')->first();
         $slide_items = Slide::where('status', 1)->take(5)->get();
         $relevant_categories = Category::where('status', 2)->get();
@@ -28,7 +29,7 @@ class ShopController extends Controller
         $mode_new = Mode::where('slug', 'new')->first();
         $mode_best = Mode::where('slug', 'best')->first();
 
-        return view('index', compact('mode_best', 'mode_new', 'advantages', 'relevant_categories', 'stock_categories', 'slide_items'));
+        return view('index', compact('page', 'mode_best', 'mode_new', 'advantages', 'relevant_categories', 'stock_categories', 'slide_items'));
     }
 
     public function allCategoryProducts(Request $request, $category_slug)

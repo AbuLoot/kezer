@@ -78,7 +78,6 @@ Route::get('catalog/{category}/{id}', 'ShopController@categoryProducts');
 Route::get('catalog/{category}/{subcategory}/{id}', 'ShopController@subCategoryProducts');
 Route::get('catalog/brand/{company}', 'ShopController@brandProducts');
 Route::get('p/{product}', 'ShopController@product');
-Route::get('product/{product}', 'ShopController@product');
 Route::post('comment-product', 'ShopController@saveComment');
 
 

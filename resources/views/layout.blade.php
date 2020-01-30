@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>@yield('meta_title', 'Biotic - Продукты долголетия')</title>
-  <meta name="description" content="@yield('meta_description', 'Biotic - Продукты долголетия')">
+  <title>@yield('meta_title', 'Kezer - Оптовые и розничные одежды из Турции')</title>
+  <meta name="description" content="@yield('meta_description', 'Kezer - Оптовые и розничные одежды из Турции')">
   <meta name="author" content="issayev.adilet@gmail.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -315,7 +315,7 @@
           '<li>&nbsp;&nbsp;&nbsp;Ничего не найдено.</li>'
         ],
         suggestion: function (data) {
-          return '<li class="list-group-item"><a href="/p/' + data.id + '-' + data.slug + '"><img class="list-img" src="/img/products/' + data.path + '/' + data.image + '"> ' + data.title + '<br><span>Код: ' + data.barcode + '</span> <span>ОЕМ: ' + data.oem + '</span></a></li>'
+          return '<li class="list-group-item"><a href="/p/' +  data.slug + '"><img class="list-img" src="/img/products/' + data.path + '/' + data.image + '"> ' + data.title + '<br><span>Код: ' + data.barcode + '</span> <span>ОЕМ: ' + data.oem + '</span></a></li>'
         }
       }
     });

@@ -1,8 +1,8 @@
 @extends('layout')
 
-@section('meta_title', '')
+@section('meta_title', $page->meta_title)
 
-@section('meta_description', '')
+@section('meta_description', $page->meta_description)
 
 @section('head')
 
@@ -15,12 +15,13 @@
   <!-- Hero Slider -->
   <div class="hero-slider hero-slider-one">
     @if($slide_items->isNotEmpty())
+    @endif
       @foreach($slide_items as $key => $slide_item)
         <div class="single-slide" style="background-image: url(img/slide/{{ $slide_item->image }})">
           <div class="hero-content-one container">
             <div class="row">
               <div class="col"> 
-                <div class="slider-text-info text-white">
+                <div class="slider-text-info">
                   <h2 class="display-4" style="color: {{ $slide_item->color }};">{{ $slide_item->title }}</h2>
                   <h3 style="color: {{ $slide_item->color }};">{{ $slide_item->marketing }}</h3>
                   <a href="/{{ $slide_item->link }}" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Подробнее</span></a>
@@ -30,21 +31,6 @@
           </div>
         </div>
       @endforeach
-    @else
-      <div class="single-slide" style="background-image: url(img/slide/1.png)">
-        <div class="hero-content-one container">
-          <div class="row">
-            <div class="col"> 
-              <div class="slider-text-info">
-                <h2 class="display-4 text-white">Сіздің Туркиядағы сенімді серіктесіңіз</h2>
-                <h2 class="text-white">Ваш надежный партнер в Турции</h2>
-                <!-- <a href="/" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> Подробнее</span></a> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    @endif
   </div>
 
   <!-- Categories List Post area-->

@@ -1,8 +1,8 @@
 @extends('layout')
 
-@section('meta_title', '')
+@section('meta_title', $product->meta_title)
 
-@section('meta_description', '')
+@section('meta_description', $product->meta_description)
 
 @section('head')
 
