@@ -53,7 +53,9 @@
               <ul class="single-top-selector">
                 <li class="setting-top list-inline-item">
                   @guest
-                    <a href="/cs-login">Войти</a>
+                    <div class="topbar__item topbar__item--link">
+                      <a class="topbar-link" href="/cs-login">Войти</a>
+                    </div>
                   @else
                     <div class="btn-group">
                       <button class="dropdown-toggle"><i class="fa fa-user-circle-o"></i> {{ Auth::user()->name }} <i class="fa fa-angle-down"></i></button>

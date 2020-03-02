@@ -91,11 +91,11 @@
       <label for="delivery">Способ доставки:</label>
       <select id="delivery" name="delivery" class="form-control" required>
         <option value=""></option>
-        @foreach(trans('orders.get') as $key => $value)
-          @if ($key == $order->delivery)
-            <option value="{{ $key }}" selected>{{ $value['value'] }}</option>
+        @foreach(trans('orders.get') as $key => $id)
+          @if ($id == $order->delivery)
+            <option value="{{ $key }}" selected>{{ $key }}</option>
           @else
-            <option value="{{ $key }}">{{ $value['value'] }}</option>
+            <option value="{{ $key }}">{{ $key }}</option>
           @endif
         @endforeach
       </select>
@@ -104,11 +104,11 @@
       <label for="payment_type">Способ оплаты:</label>
       <select id="payment_type" name="payment_type" class="form-control" required>
         <option value=""></option>
-        @foreach(trans('orders.pay') as $key => $value)
-          @if ($key == $order->payment_type)
-            <option value="{{ $key }}" selected>{{ $value['value'] }}</option>
+        @foreach(trans('orders.pay') as $key => $id)
+          @if ($id == $order->payment_type)
+            <option value="{{ $key }}" selected>{{ $key }}</option>
           @else
-            <option value="{{ $key }}">{{ $value['value'] }}</option>
+            <option value="{{ $key }}">{{ $key }}</option>
           @endif
         @endforeach
       </select>

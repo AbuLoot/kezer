@@ -18,8 +18,8 @@ class CreateSectionTable extends Migration
             $table->integer('sort_id')->nullable();
             $table->string('slug');
             $table->string('title');
-            $table->string('image');
-            $table->string('images');
+            $table->string('image')->nullable();
+            $table->string('images')->nullable();
             $table->string('data_1');
             $table->string('data_2');
             $table->string('data_3');

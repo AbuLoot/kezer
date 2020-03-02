@@ -15,7 +15,6 @@
   <!-- Hero Slider -->
   <div class="hero-slider hero-slider-one">
     @if($slide_items->isNotEmpty())
-    @endif
       @foreach($slide_items as $key => $slide_item)
         <div class="single-slide" style="background-image: url(img/slide/{{ $slide_item->image }})">
           <div class="hero-content-one container">
@@ -31,6 +30,7 @@
           </div>
         </div>
       @endforeach
+    @endif
   </div>
 
   <!-- Categories List Post area-->
@@ -190,21 +190,17 @@
     function addToCart(i) {
       var productId = $(i).data("product-id");
 
-      if (productId != '') {
-        $.ajax({
-          type: "get",
-          url: '/add-to-cart/'+productId,
-          dataType: "json",
-          data: {},
-          success: function(data) {
-            $('*[data-product-id="'+productId+'"]').replaceWith('<a href="/cart" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>');
-            $('#count-items').text(data.countItems);
-            alert('Товар добавлен в корзину');
-          }
-        });
-      } else {
-        alert("Ошибка сервера");
-      }
+      $.ajax({
+        type: "get",
+        url: '/add-to-cart/'+productId,
+        dataType: "json",
+        data: {},
+        success: function(data) {
+          $('*[data-product-id="'+productId+'"]').replaceWith('<a href="/cart" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>');
+          $('#count-items').text(data.countItems);
+          alert('Товар добавлен в корзину');
+        }
+      });
     }
   </script>
 @endsection

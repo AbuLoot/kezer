@@ -12,6 +12,11 @@ Route::post('cs-register', 'Auth\AuthCustomController@postRegister');
 
 Auth::routes();
 
+Route::get('parsing', 'ParsingController@index');
+Route::get('request', 'ParsingController@request');
+Route::get('request2', 'ParsingController@recursive_get_catalog');
+
+
 // User Profile
 Route::group(['middleware' => 'auth', 'role:user'], function() {
 
