@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Storage;
 use PhpQuery\PhpQuery as phpQuery;
 PhpQuery::use_function(__NAMESPACE__);
@@ -19,6 +18,7 @@ class ParsingController extends Controller
 
     public $categories = '';
     public $companies = '';
+    public $cookiefile = '/tmp/cookie.txt';
 
     public function __construct()
     {
@@ -53,53 +53,38 @@ class ParsingController extends Controller
         $url = 'https://www.malkocbebe.com/uye/giris';
         $postdata = 'kullaniciadi=globus&sifre=turktorg1&SubmitLogin=';
 
-        $this->recursive_get_page($domen, $url, $postdata);
-
-        echo '<h1>The end!</h1>';
-    }
-
-    public function recursive_get_page($domen, $url, $postdata)
-    {
         $ch = curl_init($url);
-        // curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        // curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 2);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookiefile);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookiefile);
+        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
 
-        // curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
-        // curl_setopt($ch, CURLOPT_HEADER, 0);
-        // curl_setopt($ch, CURLOPT_VERBOSE,true);
-        // curl_setopt($ch, CURLOPT_NOBODY, true);
-        // curl_setopt($ch, CURLOPT_PROXY, false);
-        // curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
-
         $html = curl_exec($ch);
         curl_close($ch);
-
-        echo $html;
-        exit();
 
         $dom = phpQuery::newDocument($html);
 
         foreach ($dom->find('.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li a') as $category) {
             $category_item = pq($category);
             $category_href = $category_item->attr('href');
-
             $this->recursive_get_category($category_href);
             // usleep(300000);
         }
+
+        echo '<h1>The end!</h1>';
     }
 
     public function recursive_get_category($url)
     {
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         $html = curl_exec($ch);
         curl_close($ch);
 
@@ -112,6 +97,7 @@ class ParsingController extends Controller
             // $this->recursive_get_product($product_href);
             // usleep(300000);
         }
+
         exit();
 
         $active_page = $dom->find('div.jshop_pagination > div > ul > li.active.hidden-phone')->next();
