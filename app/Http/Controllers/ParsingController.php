@@ -6,6 +6,7 @@ use Image;
 use Storage;
 use PhpQuery\PhpQuery as phpQuery;
 PhpQuery::use_function(__NAMESPACE__);
+// use Stichoza\GoogleTranslate\GoogleTranslate;
 
 use App\Option;
 use App\Product;
@@ -18,12 +19,14 @@ class ParsingController extends Controller
 {
     use ImageTrait;
 
+    // public $google = '';
     public $options = '';
     public $options_id = [];
     public $options_title = [];
 
     public function __construct()
     {
+        // $this->google = new GoogleTranslate('en');
         $this->options = Option::all();
         $this->options_title = Option::pluck('title')->toArray();
     }
@@ -92,12 +95,19 @@ class ParsingController extends Controller
 
         $dom = phpQuery::newDocument($html);
 
+        $order = 0;
+
         foreach ($dom->find('.pnlurun .urunkutu-detay .isim a') as $product) {
             $product_item = pq($product);
             $product_href = $product_item->attr('href');
             $this->recursive_get_product($product_href);
             // usleep(300000);
+            if ($order == 15) {
+                continue;
+            }
+            $order++;
         }
+        exit();
 
         $active_page = $dom->find('.pagination>.active')->next();
         $next_page = $active_page->find('a')->attr('href');
@@ -193,15 +203,15 @@ class ParsingController extends Controller
             $watermark = Image::make('img/Untitled.png');
 
             // Creating present images
-            $this->resizeOptimalImage($image_org, 300, 280, '/img/products/'.$dirName.'/present-'.$imageName, 100);
+            $this->resizeOptimalImage($image_org, 300, 280, '/img/products/'.$dirName.'/present-'.$imageName, 95, $watermark);
 
             // Creating preview image
-            if ($key == 0) {
+            if ($order == 0) {
                 $introImage = 'present-'.$imageName;
             }
 
-            $images[$key]['image'] = $imageName;
-            $images[$key]['present_image'] = 'present-'.$imageName;
+            $images[$order]['image'] = $imageName;
+            $images[$order]['present_image'] = 'present-'.$imageName;
             $order++;
         }
 
