@@ -95,19 +95,12 @@ class ParsingController extends Controller
 
         $dom = phpQuery::newDocument($html);
 
-        $order = 0;
-
         foreach ($dom->find('.pnlurun .urunkutu-detay .isim a') as $product) {
             $product_item = pq($product);
             $product_href = $product_item->attr('href');
             $this->recursive_get_product($product_href);
             // usleep(300000);
-            if ($order == 15) {
-                continue;
-            }
-            $order++;
         }
-        exit();
 
         $active_page = $dom->find('.pagination>.active')->next();
         $next_page = $active_page->find('a')->attr('href');
