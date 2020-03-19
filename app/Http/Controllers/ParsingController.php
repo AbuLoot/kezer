@@ -193,7 +193,7 @@ class ParsingController extends Controller
             $watermark = Image::make('img/Untitled.png');
 
             // Creating present images
-            $this->resizeOptimalImage($image_org, 280, 280, '/img/products/'.$dirName.'/present-'.$imageName, 100);
+            $this->resizeOptimalImage($image_org, 300, 280, '/img/products/'.$dirName.'/present-'.$imageName, 100);
 
             // Creating preview image
             if ($key == 0) {
