@@ -67,7 +67,7 @@ trait ImageTrait {
         $frame->insert($newImage, 'center');
 
         if ($watermark != null) {
-            $frame->insert($watermark, 'bottom-left', 65, 65);
+            $frame->insert($watermark, 'top-right');
         }
 
         $frame->save(public_path().$path, $quality);

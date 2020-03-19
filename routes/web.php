@@ -1,6 +1,5 @@
 <?php
 
-
 // Authentication routes...
 Route::get('cs-login', 'Auth\AuthCustomController@getLogin')->middleware('guest');;
 Route::post('cs-login', 'Auth\AuthCustomController@postLogin');
@@ -14,8 +13,6 @@ Auth::routes();
 
 Route::get('parsing', 'ParsingController@index');
 Route::get('request', 'ParsingController@request');
-Route::get('request2', 'ParsingController@recursive_get_catalog');
-
 
 // User Profile
 Route::group(['middleware' => 'auth', 'role:user'], function() {
