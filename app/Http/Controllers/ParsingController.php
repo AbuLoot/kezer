@@ -6,7 +6,6 @@ use Image;
 use Storage;
 use PhpQuery\PhpQuery as phpQuery;
 PhpQuery::use_function(__NAMESPACE__);
-// use Stichoza\GoogleTranslate\GoogleTranslate;
 
 use App\Option;
 use App\Product;
@@ -19,14 +18,14 @@ class ParsingController extends Controller
 {
     use ImageTrait;
 
-    // public $google = '';
+    public $products = [];
     public $options = '';
     public $options_id = [];
     public $options_title = [];
 
     public function __construct()
     {
-        // $this->google = new GoogleTranslate('en');
+        $this->products = Product::all();
         $this->options = Option::all();
         $this->options_title = Option::pluck('title')->toArray();
     }
@@ -73,11 +72,79 @@ class ParsingController extends Controller
 
         $dom = phpQuery::newDocument($html);
 
+        $categories_except = [
+            'https://www.malkocbebe.com/urunler/kategori/122',
+            'https://www.malkocbebe.com/urunler/kategori/196',
+            'https://www.malkocbebe.com/urunler/kategori/207',
+            'https://www.malkocbebe.com/urunler/kategori/68',
+            'https://www.malkocbebe.com/urunler/kategori/67',
+            'https://www.malkocbebe.com/urunler/kategori/58',
+            'https://www.malkocbebe.com/urunler/kategori/64',
+            'https://www.malkocbebe.com/urunler/kategori/120',
+            'https://www.malkocbebe.com/urunler/kategori/121',
+            'https://www.malkocbebe.com/urunler/kategori/55',
+            'https://www.malkocbebe.com/urunler/kategori/82',
+            'https://www.malkocbebe.com/urunler/kategori/65',
+            'https://www.malkocbebe.com/urunler/kategori/62',
+            'https://www.malkocbebe.com/urunler/kategori/54',
+            'https://www.malkocbebe.com/urunler/kategori/63',
+            'https://www.malkocbebe.com/urunler/kategori/56',
+            'https://www.malkocbebe.com/urunler/kategori/103',
+            'https://www.malkocbebe.com/urunler/kategori/57',
+            'https://www.malkocbebe.com/urunler/kategori/61',
+            'https://www.malkocbebe.com/urunler/kategori/59',
+            'https://www.malkocbebe.com/urunler/kategori/156',
+            'https://www.malkocbebe.com/urunler/kategori/203',
+            'https://www.malkocbebe.com/urunler/kategori/66',
+            'https://www.malkocbebe.com/urunler/kategori/177',
+            'https://www.malkocbebe.com/urunler/kategori/178',
+            'https://www.malkocbebe.com/urunler/kategori/200',
+            'https://www.malkocbebe.com/urunler/kategori/146',
+            'https://www.malkocbebe.com/urunler/kategori/117',
+            'https://www.malkocbebe.com/urunler/kategori/145',
+            'https://www.malkocbebe.com/urunler/kategori/70',
+            'https://www.malkocbebe.com/urunler/kategori/71',
+            'https://www.malkocbebe.com/urunler/kategori/123',
+            'https://www.malkocbebe.com/urunler/kategori/147',
+            'https://www.malkocbebe.com/urunler/kategori/124',
+            'https://www.malkocbebe.com/urunler/kategori/118',
+            'https://www.malkocbebe.com/urunler/kategori/73',
+            'https://www.malkocbebe.com/urunler/kategori/75',
+            'https://www.malkocbebe.com/urunler/kategori/195',
+            'https://www.malkocbebe.com/urunler/kategori/77',
+            'https://www.malkocbebe.com/urunler/kategori/80',
+            'https://www.malkocbebe.com/urunler/kategori/193',
+            'https://www.malkocbebe.com/urunler/kategori/81',
+            'https://www.malkocbebe.com/urunler/kategori/76',
+            'https://www.malkocbebe.com/urunler/kategori/119',
+            'https://www.malkocbebe.com/urunler/kategori/72',
+
+            'https://www.malkocbebe.com/urunler/kategori/143',
+            'https://www.malkocbebe.com/urunler/kategori/94',
+            'https://www.malkocbebe.com/urunler/kategori/142',
+
+            'https://www.malkocbebe.com/urunler/kategori/95',
+            'https://www.malkocbebe.com/urunler/kategori/92',
+            'https://www.malkocbebe.com/urunler/kategori/140',
+            'https://www.malkocbebe.com/urunler/kategori/97',
+            'https://www.malkocbebe.com/urunler/kategori/98',
+            'https://www.malkocbebe.com/urunler/kategori/99',
+            'https://www.malkocbebe.com/urunler/kategori/139',
+            'https://www.malkocbebe.com/urunler/kategori/213',
+            'https://www.malkocbebe.com/urunler/kategori/214',
+            'https://www.malkocbebe.com/urunler/kategori/141',
+            'https://www.malkocbebe.com/urunler/kategori/128',
+        ];
+
         foreach ($dom->find('.wsmenu>.wsmenu-list>li>.wsmegamenu .link-list li a') as $category) {
+
             $category_item = pq($category);
             $category_href = $category_item->attr('href');
-            $this->recursive_get_category($category_href);
-            // usleep(300000);
+
+            // echo $category_href.'<br>';
+            if (!in_array($category_href, $categories_except)) {
+                $this->recursive_get_category($category_href);
+            }
         }
 
         echo '<h1>The end!</h1>';
@@ -98,8 +165,11 @@ class ParsingController extends Controller
         foreach ($dom->find('.pnlurun .urunkutu-detay .isim a') as $product) {
             $product_item = pq($product);
             $product_href = $product_item->attr('href');
-            $this->recursive_get_product($product_href);
-            // usleep(300000);
+            $response = $this->recursive_get_product($product_href);
+            if ($response == false) {
+                continue;
+            }
+            usleep(300000);
         }
 
         $active_page = $dom->find('.pagination>.active')->next();
@@ -128,6 +198,9 @@ class ParsingController extends Controller
         $page = pq($product_item);
 
         $title = $page->find('h1')->text();
+
+        if (Product::where('title', $title)->first()) return false;
+
         $barcode = $page->find('table tbody tr:eq(0) td:eq(1)')->text();
         $category_title = $page->find('table tbody tr:eq(1) td:eq(1) a')->text();
         $category_parent_title = $page->find('a.op5:eq(1))')->text();
@@ -137,15 +210,15 @@ class ParsingController extends Controller
         $price = $page->find('.detay-pano div div span')->text();
         $price2 = $page->find('.detay-pano div div div')->text();
 
-        echo $title.'<hr>';
-        //     '<br> barcode: '.$barcode.
-        //     '<br> category: '.$category_title.
-        //     '<br> category parent: '.$category_parent_title.
-        //     '<br> age_group: '.$age_group.
-        //     '<br> package_qty: '.$package_qty.
-        //     '<br> description: '.$description.
-        //     '<br> price: '.$price.
-        //     '<br> price2: '.$price2;
+        echo $title.
+            '<br> barcode: '.$barcode.
+            '| category: '.$category_title.
+            '| category parent: '.$category_parent_title.
+            '| age_group: '.$age_group.
+            '| package_qty: '.$package_qty.
+            '| description: '.$description.
+            '| price: '.$price.
+            '| price2: '.$price2.'<hr>';
 
         $category_parent = Category::where('title', $category_parent_title)->first();
 
@@ -153,7 +226,7 @@ class ParsingController extends Controller
             $category_parent = $this->createCategory($category_parent_title, NULL);
         }
 
-        $category = Category::where('title', $category_title)->first();
+        $category = Category::where('title', $category_title)->where('parent_id', $category_parent->id)->first();
 
         if ($category == NULL) {
             $category = $this->createCategory($category_title, $category_parent);
@@ -174,16 +247,17 @@ class ParsingController extends Controller
                 continue;
             }
 
-            $headers = get_headers($image_src);
-            $response = substr($headers[0], 9, 3);
+            // $headers = get_headers($image_src);
+            // $response = substr($headers[0], 9, 3);
             $image_org = file_get_contents($image_src);
 
-            if ($headers[0] == "HTTP / 1.1 200 OK") {
-                $image_org = file_get_contents($image_src);
-            }
-            elseif (!$image_org) {
-                $image_org = Storage::get('img/no-image-big.png');
-            }
+            // if ($headers[0] == "HTTP / 1.1 200 OK") {
+            //     $image_org = file_get_contents($image_src);
+            // }
+            // else {
+            // // elseif (!$image_org) {
+            //     $image_org = Storage::get('img/no-image-big.png');
+            // }
 
             $image_ext = pathinfo($image_src, PATHINFO_EXTENSION);
             $imageName = 'image-'.$order.'-'.str_slug($title).'.'.$image_ext;
@@ -208,8 +282,6 @@ class ParsingController extends Controller
             $order++;
         }
 
-        // print_r($this->options_color);
-
         $product = new Product;
         $product->sort_id = $product->count() + 1;
         $product->category_id = $category->id;
@@ -231,30 +303,35 @@ class ParsingController extends Controller
         $product->images = serialize($images);
         $product->path = $dirName;
         $product->lang = 'tr';
-        // $product->status = 1;
+        $product->status = 1;
         $product->save();
+
+        $this->options = Option::all();
+        $this->options_title = Option::pluck('title')->toArray();
 
         // Select colors
         foreach ($page->find('select optgroup option') as $key => $elem)
         {
             $elem = pq($elem);
 
-            if ( ! in_array($elem->text(), $this->options_title)) {
-                $this->options_id[] = $this->createOption($elem->text());
-            } else {
+            if (in_array($elem->text(), $this->options_title)) {
                 $option_id = $this->options->where('title', $elem->text())->pluck('id')->toArray();
                 if (isset($option_id[0])) {
                     $this->options_id[] = $option_id[0];
                 }
             }
+            else {
+                $this->options_id[] = $this->createOption($elem->text());
+            }
+
+            array_unique($this->options_id);
         }
 
-        if ( ! is_null($this->options_id)) {
+        if ( ! empty($this->options_id)) {
             $product->options()->attach($this->options_id);
         }
 
-        $this->options_id = [];
-        $this->options_title = Option::pluck('title')->toArray();
+        unset($this->options_id);
 
         phpQuery::unloadDocuments($html);
     }

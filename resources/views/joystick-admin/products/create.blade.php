@@ -80,18 +80,20 @@
         <option value="2">В наличии нет</option>
       </select>
     </div>
-    <div class="form-group">
-      <label for="options_id">Опции (зажмите Ctrl чтобы выбрать несколько вариантов)</label>
-      <select id="options_id" name="options_id[]" class="form-control" size="10" multiple>
-        <option value=""></option>
+    <div class="panel panel-default">
+      <div class="panel-heading"><b>Опции</b></div>
+      <div class="panel-body" style="max-height: 250px; overflow-y: auto;">
         @forelse ($grouped as $data => $group)
-          <optgroup label="{{ $data }}">
-            @foreach ($group as $option)
-              <option value="{{ $option->id }}">{{ $option->title }}</option>
-            @endforeach
-          </optgroup>
+          <p><b>{{ $data }}</b></p>
+          @foreach ($group as $option)
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="options_id[]" value="{{ $option->id }}"> {{ $option->title }}
+              </label>
+            </div>
+          @endforeach
         @endforeach
-      </select>
+      </div>
     </div>
     <div class="form-group">
       <label for="meta_title">Мета заголовок</label>

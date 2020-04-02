@@ -237,7 +237,7 @@ class ProductController extends Controller
         $images = unserialize($product->images);
         $dirName = $product->path;
 
-        if (!file_exists('img/products/'.$product->category_id) OR empty($product->path)) {
+        if ( ! file_exists('img/products/'.$product->category_id) OR empty($product->path)) {
             $dirName = $product->category->id.'/'.time();
             Storage::makeDirectory('img/products/'.$dirName);
             $product->path = $dirName;
@@ -359,30 +359,20 @@ class ProductController extends Controller
         $product->save();
 
         if ( ! is_null($request->modes_id)) {
-            $product->modes()->sync($request->modes_id);
+            $product->modes()->attach($request->modes_id);
         }
 
-        if ( ! is_null($request->options_id)) {
-            $product->options()->sync($request->options_id);
+        // Delete options
+        if (is_null($request->options_id) OR count($request->options_id) < $product->options->count()) {
+            $options_del = $product->options->except($request->options_id);
+            $product->options()->detach($options_del);
         }
+
+        // Add new options if exist
+        $options_new = collect($request->options_id)->diff($product->options->pluck('id'));
+        $product->options()->attach($options_new);
 
         return redirect('admin/products')->with('status', 'Товар обновлен!');
-    }
-
-    public function editHtml($id)
-    {
-        $product = Product::findOrFail($id);
-
-        return view('joystick-admin.products.page', ['product' => $product]);
-    }
-
-    public function saveHtml($id)
-    {
-        $product = Product::find($id);
-        $product->description = $_GET['html'];
-        $product->save();
-
-        return response()->json($product->title);
     }
 
     public function destroy($id)

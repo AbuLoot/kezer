@@ -101,22 +101,20 @@
         <option value="2">В наличии нет</option>
       </select>
     </div>
-    <div class="form-group">
-      <label for="options_id">Опции (зажмите Ctrl чтобы выбрать несколько вариантов)</label>
-      <select id="options_id" name="options_id[]" class="form-control" size="10" multiple>
-        <option value=""></option>
+    <div class="panel panel-default">
+      <div class="panel-heading"><b>Опции</b></div>
+      <div class="panel-body" style="max-height: 250px; overflow-y: auto;">
         @forelse ($grouped as $data => $group)
-          <optgroup label="{{ $data }}">
-            @foreach ($group as $option)
-              @if ($product->options->contains($option->id))
-                <option value="{{ $option->id }}" selected>{{ $option->title }}</option>
-              @else
-                <option value="{{ $option->id }}">{{ $option->title }}</option>
-              @endif
-            @endforeach
-          </optgroup>
+          <p><b>{{ $data }}</b></p>
+          @foreach ($group as $option)
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="options_id[]" value="{{ $option->id }}" @if ($product->options->contains($option->id)) checked @endif> {{ $option->title }}
+              </label>
+            </div>
+          @endforeach
         @endforeach
-      </select>
+      </div>
     </div>
     <div class="form-group">
       <label for="meta_title">Мета заголовок</label>
@@ -129,9 +127,6 @@
     <div class="form-group">
       <label for="characteristic">Характеристика</label>
       <textarea class="form-control" name="characteristic" rows="6" maxlength="2000">{{ (old('characteristic')) ? old('characteristic') : $product->characteristic }}</textarea>
-    </div>
-    <div class="form-group">
-      <a target="_blank" href="/admin/edit-page/{{ $product->id }}" class="btn btn-primary">Редактировать страницу</a>
     </div>
     <div class="form-group">
       <label for="description">Описание</label>

@@ -30,7 +30,7 @@
   <div class="content-wraper">
     <div class="container">
       <div class="row single-product-area">
-        <div class="col-lg-5 col-md-6">
+        <div class="col-lg-6 col-md-6">
            <!-- Product Details Left -->
           <div class="product-details-left">
             <div class="product-details-images slider-lg-image-1">
@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <div class="col-lg-7 col-md-6">
+        <div class="col-lg-6 col-md-6">
           <div class="product-details-view-content">
             <div class="product-info">
               <h2>{{ $product->title }}</h2>
@@ -74,6 +74,14 @@
                     <option value="1" title="S" selected="selected">S</option>
                     <option value="2" title="M">M</option>
                     <option value="3" title="L">L</option>
+                  </select>
+                </div>
+                <div class="produt-variants-size">
+                  <label>Цвета</label>
+                  <select class="form-control-select">
+                    @foreach($product->options as $option)
+                      <option value="{{ $option->id }}" title="{{ $option->title }}">{{ $option->title }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="produt-variants-color">

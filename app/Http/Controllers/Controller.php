@@ -21,7 +21,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $mode = Mode::where('slug', 'trend')->first();
-    	$languages = Language::orderBy('sort_id')->get();
+        $languages = Language::orderBy('sort_id')->get();
         $contacts = Section::where('slug', 'contacts')->first();
         $pages = Page::where('status', 1)->whereNotIn('slug', ['/'])->orderBy('sort_id')->get()->toTree();
         $companies = Company::where('status', 1)->orderBy('sort_id')->take(5)->get();

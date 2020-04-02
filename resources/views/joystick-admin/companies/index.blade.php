@@ -6,13 +6,24 @@
 
   @include('joystick-admin.partials.alerts')
 
-  <p class="text-right">
+  <div class="text-right">
+    <div class="btn-group">
+      <button type="button" id="submit" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Функции <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" id="actions">
+        @foreach(trans('statuses.category') as $num => $status)
+          <li><a data-action="{{ $num }}" href="#">Статус {{ $status }}</a></li>
+        @endforeach
+      </ul>
+    </div>
     <a href="/admin/companies/create" class="btn btn-success btn-sm">Добавить</a>
-  </p>
+  </div><br>
   <div class="table-responsive">
     <table class="table table-striped table-condensed">
       <thead>
         <tr class="active">
+          <td><input type="checkbox" onclick="toggleCheckbox(this)" class="checkbox-ids"></td>
           <td>№</td>
           <td>Картинка</td>
           <td>Название</td>
@@ -25,15 +36,12 @@
         <?php $i = 1; ?>
         @foreach ($companies as $company)
           <tr>
+            <td><input type="checkbox" name="companies_id[]" value="{{ $company->id }}" class="checkbox-ids"></td>
             <td>{{ $i++ }}</td>
             <td><img src="/img/companies/{{ $company->logo }}" class="img-responsive" style="width:80px;"></td>
             <td>{{ $company->title }}</td>
             <td>{{ $company->sort_id }}</td>
-            @if ($company->status == 1)
-              <td class="text-success">Активен</td>
-            @else
-              <td class="text-danger">Неактивен</td>
-            @endif
+            <td class="text-info">{{ trans('statuses.category.'.$company->status) }}</td>
             <td class="text-right">
               <a class="btn btn-link btn-xs" href="{{ route('companies.edit', $company->id) }}" title="Редактировать"><i class="material-icons md-18">mode_edit</i></a>
               <form method="POST" action="{{ route('companies.destroy', $company->id) }}" accept-charset="UTF-8" class="btn-delete">
@@ -50,4 +58,44 @@
 
   {{ $companies->links() }}
 
+@endsection
+
+@section('scripts')
+  <script>
+    // Submit button click
+    $("#actions > li > a").click(function() {
+
+      var action = $(this).data("action");
+      var companiesId = new Array();
+
+      $('input[name="companies_id[]"]:checked').each(function() {
+        companiesId.push($(this).val());
+      });
+
+      if (companiesId.length > 0) {
+        $.ajax({
+          type: "get",
+          url: '/admin/companies-actions',
+          dataType: "json",
+          data: {
+            "action": action,
+            "companies_id": companiesId
+          },
+          success: function(data) {
+            console.log(data);
+            location.reload();
+          }
+        });
+      }
+    });
+
+    // Toggle checkbox
+    function toggleCheckbox(source) {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+          checkboxes[i].checked = source.checked;
+      }
+    }
+  </script>
 @endsection

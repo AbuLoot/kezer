@@ -61,7 +61,7 @@
               <?php $options_id = session('options'); ?>
               @foreach ($grouped as $data => $group)
                 <div class="filter-sub-area">
-                  <h5 class="filter-sub-titel">{{ $data }}...</h5>
+                  <h5 class="filter-sub-titel">{{ $data }}</h5>
                   <div class="size-checkbox">
                     <ul>
                       @foreach ($group as $option)

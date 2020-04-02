@@ -65,11 +65,11 @@ class ShopController extends Controller
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $categories)->orderByRaw($sort)
                 ->whereHas('options', function ($query) use ($options_id) {
                     $query->whereIn('option_id', $options_id);
-                })->paginate(12);
+                })->paginate(24);
         }
         else {
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $categories)->orderByRaw($sort)
-                ->paginate(12);
+                ->paginate(24);
         }
 
         if ($request->ajax()) {
@@ -125,11 +125,11 @@ class ShopController extends Controller
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->whereHas('options', function ($query) use ($options_id) {
                     $query->whereIn('option_id', $options_id);
-                })->paginate(12);
+                })->paginate(24);
         }
         else {
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
-                ->paginate(12);
+                ->paginate(24);
         }
 
         if ($request->ajax()) {
@@ -184,11 +184,11 @@ class ShopController extends Controller
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
                 ->whereHas('options', function ($query) use ($options_id) {
                     $query->whereIn('option_id', $options_id);
-                })->paginate(15);
+                })->paginate(24);
         }
         else {
             $products = Product::where('status', '<>', 0)->whereIn('category_id', $ids)->orderByRaw($sort)
-                ->paginate(15);
+                ->paginate(24);
         }
 
         if ($request->ajax()) {

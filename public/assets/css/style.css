@@ -1533,7 +1533,7 @@ body.box-body {
   background: #ffffff;
   left: 0;
   padding: 40px 25px;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   position: absolute;
   text-align: left;
   width: 680px;

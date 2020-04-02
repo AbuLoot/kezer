@@ -39,10 +39,11 @@
             <li><a data-action="{{ $num }}" href="#">Статус {{ $status }}</a></li>
           @endforeach
           <li role="separator" class="divider"></li>
+          <li><a data-action="destroy" href="#" onclick="return confirm('Удалить записи?')">Удалить</a></li>
+          <li role="separator" class="divider"></li>
           @foreach($modes as $mode)
             <li><a data-action="{{ $mode->slug }}" href="#">Режим {{ $mode->title }}</a></li>
           @endforeach
-          <!-- <li><a data-action="destroy" href="#" onclick="return confirm('Удалить записи?')">Удалить</a></li> -->
         </ul>
       </div>
       <!-- <a href="/admin/products-price/edit" class="btn btn-primary btn-sm">Изменить цену</a> -->
@@ -58,6 +59,7 @@
           <td>Картинка</td>
           <td>Название</td>
           <td>Категория</td>
+          <td>Дата</td>
           <td>Компания</td>
           <td>Номер</td>
           <td>Просмотры</td>
@@ -74,6 +76,7 @@
             <td><img src="/img/products/{{ $product->path.'/'.$product->image }}" class="img-responsive" style="width:80px;height:auto;"></td>
             <td>{{ $product->title }}</td>
             <td>{{ $product->category->title }}</td>
+            <td>{{ $product->created_at }}</td>
             <td>{{ (isset($product->company->title)) ? $product->company->title : '' }}</td>
             <td>{{ $product->sort_id }}</td>
             <td>{{ $product->views }}</td>
@@ -85,7 +88,7 @@
             </td>
             <td class="text-info">{{ trans('statuses.data.'.$product->status) }}</td>
             <td class="text-right text-nowrap">
-              <a class="btn btn-link btn-xs" href="/product/{{ $product->slug }}" title="Просмотр товара" target="_blank"><i class="material-icons md-18">link</i></a>
+              <a class="btn btn-link btn-xs" href="/p/{{ $product->slug }}" title="Просмотр товара" target="_blank"><i class="material-icons md-18">link</i></a>
               <a class="btn btn-link btn-xs" href="{{ route('products.edit', $product->id) }}" title="Редактировать"><i class="material-icons md-18">mode_edit</i></a>
               <form class="btn-delete" method="POST" action="{{ route('products.destroy', $product->id) }}" accept-charset="UTF-8">
                 <input name="_method" type="hidden" value="DELETE">

@@ -68,12 +68,6 @@
             <div class="single-product-wrap">
               <div class="product-image">
                 <a href="/p/{{ $new_product->slug }}"><img src="/img/products/{{ $new_product->path.'/'.$new_product->image }}" alt="{{ $new_product->title }}"></a>
-                @foreach($new_product->modes as $m)
-                  @if(in_array($m->slug, ['recommend', 'new', 'best-price', 'stock', 'plus-gift']))
-                    <span class="label-product label-new">Новинка</span>
-                    <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
-                  @endif
-                @endforeach
               </div>
               <div class="product-content">
                 <h3><a href="/p/{{ $new_product->slug }}">{{ $new_product->title }}</a></h3>
@@ -111,12 +105,6 @@
             <div class="single-product-wrap">
               <div class="product-image">
                 <a href="/p/{{ $best_product->slug }}"><img src="/img/products/{{ $best_product->path.'/'.$best_product->image }}" alt="{{ $best_product->title }}"></a>
-                @foreach($best_product->modes as $m)
-                  @if(in_array($m->slug, ['recommend', 'new', 'best-price', 'stock', 'plus-gift']))
-                    <span class="label-product label-new">Новинка</span>
-                    <div class="offer-{{ $m->slug }}">{{ $m->title }}</div>
-                  @endif
-                @endforeach
               </div>
               <div class="product-content">
                 <h3><a href="/p/{{ $best_product->slug }}">{{ $best_product->title }}</a></h3>

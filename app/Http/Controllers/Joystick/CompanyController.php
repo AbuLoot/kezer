@@ -18,6 +18,17 @@ class CompanyController extends Controller
         return view('joystick-admin.companies.index', compact('companies'));
     }
 
+    public function actionCompanies(Request $request)
+    {
+        $this->validate($request, [
+            'companies_id' => 'required'
+        ]);
+
+        Company::whereIn('id', $request->companies_id)->update(['status' => $request->action]);
+
+        return response()->json(['status' => true]);
+    }
+
     public function create()
     {
         $countries = Country::orderBy('sort_id')->get();

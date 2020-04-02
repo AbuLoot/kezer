@@ -18,6 +18,17 @@ class CategoryController extends Controller
         return view('joystick-admin.categories.index', compact('categories'));
     }
 
+    public function actionCategories(Request $request)
+    {
+        $this->validate($request, [
+            'categories_id' => 'required'
+        ]);
+
+        Category::whereIn('id', $request->categories_id)->update(['status' => $request->action]);
+
+        return response()->json(['status' => true]);
+    }
+
     public function create()
     {
         $categories = Category::get()->toTree();
