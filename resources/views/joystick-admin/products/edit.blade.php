@@ -101,8 +101,8 @@
         <option value="2">В наличии нет</option>
       </select>
     </div>
+    <p><b>Опции</b></p>
     <div class="panel panel-default">
-      <div class="panel-heading"><b>Опции</b></div>
       <div class="panel-body" style="max-height: 250px; overflow-y: auto;">
         @forelse ($grouped as $data => $group)
           <p><b>{{ $data }}</b></p>

@@ -6,7 +6,6 @@
   @include('joystick-admin.partials.alerts')
 
   <p class="text-right">
-    <a target="_blank" href="/admin/edit-html-page/{{ $page->id }}" class="btn btn-success btn-sm">Конструктор страницы</a>
     <a href="/admin/pages" class="btn btn-primary btn-sm">Назад</a>
   </p>
   <form action="{{ route('pages.update', $page->id) }}" method="post">

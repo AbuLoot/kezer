@@ -80,8 +80,8 @@
         <option value="2">В наличии нет</option>
       </select>
     </div>
+    <p><b>Опции</b></p>
     <div class="panel panel-default">
-      <div class="panel-heading"><b>Опции</b></div>
       <div class="panel-body" style="max-height: 250px; overflow-y: auto;">
         @forelse ($grouped as $data => $group)
           <p><b>{{ $data }}</b></p>
@@ -153,7 +153,7 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="status">Статус:</label>
+      <label for="status">Статус</label>
       @foreach(trans('statuses.data') as $num => $status)
         <label>
           <input type="radio" id="status" name="status" value="{{ $num }}" @if($num == 1) checked @endif> {{ $status }}

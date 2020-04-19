@@ -66,6 +66,7 @@
               <div class="price-box">
                 <span class="new-price">{{ $product->price }}〒</span>
               </div>
+              <span><b>Номер: {{ $product->barcode }}</b></span><hr>
               {!! $product->characteristic !!}
               <div class="product-variants">
                 <div class="produt-variants-size">

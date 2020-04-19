@@ -125,13 +125,13 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Banner area -->
   @if($stock_categories->isNotEmpty())
     <div class="banner-area-two mt--70">
       <div class="container-fluid plr-40">
         <div class="row">
-          @foreach($stock_categories as $stock_category)
+          @foreach($stock_categories as $key => $stock_category)
             <div class="col-lg-6 col-md-6">
               <div class="single-banner-two mt--30">
                 <a href="/catalog/{{ $stock_category->slug .'/'. $stock_category->id }}">
@@ -153,7 +153,6 @@
       </div>
     </div>
   @endif
-
 
   <!-- Our Brand Area -->
   <div class="our-brand-area mt--70">

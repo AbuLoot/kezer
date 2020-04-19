@@ -11,11 +11,11 @@ Route::post('cs-register', 'Auth\AuthCustomController@postRegister');
 
 Auth::routes();
 
+// Route::get('parsing', 'ParsingController@index');
+// Route::get('request', 'ParsingController@request');
 // Route::get('opt', 'TranslateController@options');
 // Route::get('cat', 'TranslateController@categories');
 // Route::get('pro', 'TranslateController@products');
-// Route::get('parsing', 'ParsingController@index');
-// Route::get('request', 'ParsingController@request');
 
 // User Profile
 Route::group(['middleware' => 'auth', 'role:user'], function() {

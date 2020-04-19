@@ -21,11 +21,11 @@ class ShopController extends Controller
     public function index()
     {
         $page = Page::firstOrFail();
-        // $mode_top = Mode::where('slug', 'top')->first();
         $slide_items = Slide::where('status', 1)->take(5)->get();
         $relevant_categories = Category::where('status', 2)->get();
         $stock_categories = Category::where('status', 3)->get();
         $advantages = Section::where('slug', 'advantages')->where('status', 1)->first();
+        // $mode_top = Mode::where('slug', 'top')->first();
         $mode_new = Mode::where('slug', 'new')->first();
         $mode_best = Mode::where('slug', 'best')->first();
 
