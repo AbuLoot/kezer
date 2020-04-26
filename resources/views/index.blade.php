@@ -1,8 +1,8 @@
 @extends('layout')
 
-@section('meta_title', $page->meta_title)
+@section('meta_title', (!empty($page->meta_title)) ? $page->meta_title : $page->title)
 
-@section('meta_description', $page->meta_description)
+@section('meta_description', (!empty($page->meta_description)) ? $page->meta_description : $page->title)
 
 @section('head')
 

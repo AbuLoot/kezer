@@ -1,8 +1,8 @@
 @extends('layout')
 
-@section('meta_title', '')
+@section('meta_title', 'Found')
 
-@section('meta_description', '')
+@section('meta_description', 'Found')
 
 @section('head')
 
