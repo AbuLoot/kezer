@@ -78,10 +78,6 @@
       <input type="text" class="form-control" id="meta_description" name="meta_description" maxlength="255" value="{{ (old('meta_description')) ? old('meta_description') : $page->meta_description }}">
     </div>
     <div class="form-group">
-      <label for="content">Короткое описание</label>
-      <textarea class="form-control" id="editor" name="short_description" rows="10" cols="10">{{ (old('short_description')) ? old('short_description') : $page->short_description }}</textarea>
-    </div>
-    <div class="form-group">
       <label for="content">Контент</label>
       <textarea class="form-control" id="editor2" name="content" rows="5">{{ (old('content')) ? old('content') : $page->content }}</textarea>
     </div>

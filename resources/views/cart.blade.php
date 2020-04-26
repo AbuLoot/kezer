@@ -5,7 +5,57 @@
 @section('meta_description', 'Корзина')
 
 @section('head')
+<style>
+  @media only screen and (max-width: 800px) {
 
+    /* Force table to not be like tables anymore */
+    #no-more-tables table, 
+    #no-more-tables thead, 
+    #no-more-tables tbody, 
+    #no-more-tables th, 
+    #no-more-tables td, 
+    #no-more-tables tr { 
+      display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #no-more-tables thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    #no-more-tables tr { border: 1px solid #ccc; }
+
+    #no-more-tables td { 
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 50%; 
+      white-space: normal;
+      text-align:left;
+    }
+
+    #no-more-tables td:before { 
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%; 
+      padding-right: 10px; 
+      white-space: nowrap;
+      text-align:left;
+      font-weight: bold;
+    }
+
+    /*
+    Label the data
+    */
+    #no-more-tables td:before { content: attr(data-title); }
+  }
+</style>
 @endsection
 
 @section('content')
@@ -35,33 +85,36 @@
               {!! csrf_field() !!}
               <div class="table-content table-responsive">
                 <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th class="plantmore-product-thumbnail">Картинка</th>
-                      <th class="cart-product-name">Продукт</th>
-                      <th class="plantmore-product-price">Цена</th>
-                      <th class="plantmore-product-quantity">Количество</th>
-                      <th class="plantmore-product-subtotal">Сумма</th>
-                      <th class="plantmore-product-remove">Удалить</th>
+                  <thead class="d-none d-sm-block">
+                    <tr class="row">
+                      <th class="col-md-2 plantmore-product-thumbnail">Картинка</th>
+                      <th class="col-md-3 cart-product-name">Продукт</th>
+                      <th class="col-md-2 plantmore-product-price">Цена</th>
+                      <th class="col-md-2 plantmore-product-quantity">Количество</th>
+                      <th class="col-md-2 plantmore-product-subtotal">Сумма</th>
+                      <th class="col-md-1 plantmore-product-remove">Удалить</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php $total_sum = 0; ?>
                     @foreach ($products as $product)
-                      <tr>
-                        <td class="plantmore-product-thumbnail"><a href="/img/products/{{ $product->path.'/'.$product->image }}"><img src="/img/products/{{ $product->path.'/'.$product->image }}" style="width:80px;height:80px;"></a></td>
-                        <td class="plantmore-product-name text-left"><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></td>
-                        <td class="plantmore-product-price"><span class="amount">{{ $product->price }}〒</span></td>
-                        <td class="plantmore-product-quantity">
+                      <?php $quantity = session('items')['products_id'][$product->id]['quantity']; ?>
+                      <?php $total_sum += $product->price * $quantity; ?>
+                      <tr class="row">
+                        <td class="col-md-2 col-6 border-top plantmore-product-thumbnail"><a href="/img/products/{{ $product->path.'/'.$product->image }}"><img src="/img/products/{{ $product->path.'/'.$product->image }}" style="width:80px;height:80px;"></a></td>
+                        <td class="col-md-3 col-6 border-top plantmore-product-name text-left"><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></td>
+                        <td class="col-md-2 col-3 plantmore-product-price"><span class="amount">{{ $product->price }}〒</span></td>
+                        <td class="col-md-2 col-3 plantmore-product-quantity">
                           <div class="quantity">
                             <div class="cart-plus-minus">
-                              <input class="cart-plus-minus-box" type="text" name="count[{{ $product->id }}]" id="{{ $product->id }}" data-price="{{ $product->price }}" size="4" min="1" value="1">
-                              <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                              <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                              <input class="cart-plus-minus-box" type="text" name="count[{{ $product->id }}]" id="input-quantity-{{ $product->id }}" data-price="{{ $product->price }}" size="4" min="1" value="{{ $quantity }}">
+                              <div class="dec qtybutton" onclick="decrement_quantity('{{ $product->id }}')"><i class="fa fa-angle-down"></i></div>
+                              <div class="inc qtybutton" onclick="increment_quantity('{{ $product->id }}')"><i class="fa fa-angle-up"></i></div>
                             </div>
                           </div>
                         </td>
-                        <td class="product-subtotal"><span class="amount">{{ $product->price }}</span>〒</td>
-                        <td class="plantmore-product-remove"><a href="/destroy-from-cart/{{ $product->id }}" onclick="return confirm('Удалить запись?')"><i class="fa fa-close"></i></a></td>
+                        <td class="col-md-2 col-3 product-subtotal"><span class="sum-{{ $product->id }}">{{ $product->price * $quantity }}</span>〒</td>
+                        <td class="col-md-1 col-3 plantmore-product-remove"><a href="/destroy-from-cart/{{ $product->id }}" onclick="return confirm('Удалить запись?')"><i class="fa fa-close"></i></a></td>
                       </tr>
                     @endforeach
                   </tbody>
@@ -189,7 +242,7 @@
                             </tr>
                             <tr class="order-total">
                               <th><b>Итоговая сумма</b></th>
-                              <td><strong><span class="amount">{{ $products->sum('price') }}₸</span></strong></td>
+                              <td><strong><span class="total-sum">{{ $total_sum }}</span>₸</strong></td>
                             </tr>
                           </table>
 
@@ -216,5 +269,42 @@
 
 
 @section('scripts')
+<script>
+  function increment_quantity(product_id) {
 
+    var inputQuantityElement = $("#input-quantity-"+product_id);
+    var newQuantity = parseInt($(inputQuantityElement).val()) + 1;
+    addToCart(product_id, newQuantity);
+  }
+
+  function decrement_quantity(product_id) {
+
+    var inputQuantityElement = $("#input-quantity-"+product_id);
+    if ($(inputQuantityElement).val() > 1) {
+      var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
+      addToCart(product_id, newQuantity);
+    }
+  }
+
+  function addToCart(product_id, new_quantity) {
+
+    $.ajax({
+      type: "get",
+      url: '/add-to-cart/'+product_id,
+      dataType: "json",
+      data: {
+        "quantity": new_quantity
+      },
+      success: function(data) {
+        var sum = parseInt(data.price) * data.quantity;
+        var total_sum = $('.total-sum');
+
+        $('.sum-'+product_id).text(sum);
+        $('.total-sum').text(data.total_sum);
+
+        // $('*[data-product-id="'+productId+'"]').replaceWith('<a href="/cart" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>');
+      }
+    });
+  }
+</script>
 @endsection

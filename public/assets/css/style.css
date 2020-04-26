@@ -4985,11 +4985,11 @@ body.box-body {
 .your-order-table table th {
   border-top: medium none;
   font-weight: normal;
-  text-align: center;
+  /*text-align: center;*/
   text-transform: uppercase;
   vertical-align: middle;
-  white-space: nowrap;
-  width: 250px;
+  /*white-space: nowrap;*/
+  /*width: 250px;*/
 }
 .your-order-table table .shipping > th {
   vertical-align: top;
@@ -5068,7 +5068,7 @@ body.box-body {
   font-size: 16px;
   padding: 5px;
   vertical-align: middle;
-  min-width: 140px;
+  /*min-width: 140px;*/
 }
 .table-content th, .table-content td {
   border-bottom: 1px solid #ebebeb;

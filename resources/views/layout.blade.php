@@ -8,7 +8,7 @@
   <meta name="author" content="issayev.adilet@gmail.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="/assets/css/plugins.css">
@@ -287,7 +287,7 @@
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/plugins.js"></script>
-<script src="/assets/js/ajax-mail.js"></script>
+<!-- <script src="/assets/js/ajax-mail.js"></script> -->
 <script src="/assets/js/main.js"></script>
 
 <script src="/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>

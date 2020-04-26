@@ -72,7 +72,7 @@
       @foreach ($countAllProducts as $id => $countProduct)
         @if ($order->products[$i]->id == $id)
           <img src="/img/products/{{ $order->products[$i]->path.'/'.$order->products[$i]->image }}" style="width:80px;height:80px;">
-          {{ $countProduct . ' шт. ' }} <a href="/goods/{{ $order->products[$i]->id.'/'.$order->products[$i]->slug }}">{{ $order->products[$i]->title }}</a><br><br>
+          {{ $countProduct . ' шт. ' }} <a href="/p/{{ $order->products[$i]->slug }}">{{ $order->products[$i]->title }}</a><br><br>
         @endif
         <?php $c += $countProduct; ?>
         <?php $i++; ?>
@@ -91,12 +91,8 @@
       <label for="delivery">Способ доставки:</label>
       <select id="delivery" name="delivery" class="form-control" required>
         <option value=""></option>
-        @foreach(trans('orders.get') as $key => $id)
-          @if ($id == $order->delivery)
-            <option value="{{ $key }}" selected>{{ $key }}</option>
-          @else
-            <option value="{{ $key }}">{{ $key }}</option>
-          @endif
+        @foreach(trans('orders.get') as $key => $get)
+          <option value="{{ $key }}" <?php if ($order->delivery == $key) : ?> selected <?php endif; ?>>{{ $get['value'] }}</option>
         @endforeach
       </select>
     </div>
@@ -104,12 +100,8 @@
       <label for="payment_type">Способ оплаты:</label>
       <select id="payment_type" name="payment_type" class="form-control" required>
         <option value=""></option>
-        @foreach(trans('orders.pay') as $key => $id)
-          @if ($id == $order->payment_type)
-            <option value="{{ $key }}" selected>{{ $key }}</option>
-          @else
-            <option value="{{ $key }}">{{ $key }}</option>
-          @endif
+        @foreach(trans('orders.pay') as $key => $pay)
+          <option value="{{ $key }}" <?php if ($order->payment_type == $key) : ?> selected <?php endif; ?>>{{ $pay['value'] }}</option>
         @endforeach
       </select>
     </div>

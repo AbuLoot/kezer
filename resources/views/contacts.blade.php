@@ -40,27 +40,25 @@
               <div class="contact-title">
                 <h3 class="text-uppercase">Свяжитесь с нами</h3>
               </div>
-              <form id="contact-form" action="email.php" method="POST">
+              <form action="/send-app" method="POST">
+                @csrf
                  <div class="contact-page-form">
                    <div class="contact-input">
                     <div class="contact-inner">
-                      <input name="name" type="text" placeholder="First Name *" id="first-name">
+                      <input type="text" name="name" id="name" minlength="2" maxlength="40" autocomplete="off" placeholder="Ваше имя*" required>
                     </div>
                     <div class="contact-inner">
-                      <input name="lastname" type="text" placeholder="Last Name *" id="last-name">
+                      <input type="email" name="email" id="email" autocomplete="off" placeholder="Ваш e-mail*" required>
                     </div>
                     <div class="contact-inner">
-                      <input type="text" placeholder="Email *" id="email" name="email">
-                    </div>
-                    <div class="contact-inner">
-                      <input name="subject" type="text" placeholder="Subject *" id="subject">
+                      <input type="tel" pattern="(\+?\d[- .]*){7,13}" name="phone" minlength="5" maxlength="20" placeholder="Введите номер телефона*" required>
                     </div>
                     <div class="contact-inner contact-message">
-                      <textarea name="message"  placeholder="Message *"></textarea>
+                      <textarea name="message" id="message" autocomplete="off" placeholder="Ваш текст*" required></textarea>
                     </div>
                   </div>
                   <div class="contact-submit-btn">
-                    <button class="submit-btn" type="submit">Send Email</button>
+                    <button class="submit-btn" type="submit">Отправить сообщение</button>
                     <p class="form-messege"></p>
                   </div>
                  </div>
@@ -74,7 +72,7 @@
               <h3 class="text-uppercase">Наши контакты</h3>
             </div>
             <div class="contact-dec">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nam ex odio expedita, officia temporibus ipsum, placeat magni quibusdam sint, atque distinctio </p>
+              {{ $page->content }}
             </div>
             <div class="contact-address">
               <ul>
@@ -86,10 +84,10 @@
                 @endforeach
               </ul>
             </div>
-            <div class="work-hours">
+            <!-- <div class="work-hours">
               <h3><strong>Working hours</strong></h3>
               <p><strong>Monday &ndash; Saturday</strong>: &nbsp;08AM &ndash; 22PM</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 
   @if (session('info'))
-    <div class="alert alert-info">
+    <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       {{ session('info') }}
     </div>
@@ -14,9 +14,9 @@
   @endif
 
 	@if (session('status'))
-	  <div class="alert alert-success">
+	  <div class="alert alert-info">
 	    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	    {{ session('status') }}
+	    {{ session('message') }}
 	  </div>
 	@endif
 

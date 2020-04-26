@@ -33,34 +33,40 @@ class CartController extends Controller
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $quantity = (isset($request->quantity)) ? $request->quantity : 1;
 
         if ($request->session()->has('items')) {
 
             $items = $request->session()->get('items');
-            $quantity = (isset($request->quantity)) ? $request->quantity : 1;
 
             $items['products_id'][$id] = [
-                'id' => $id, 'quantity' => $quantity, 'slug' => $product->slug, 'title' => $product->title, 'img_path' => $product->path.'/'.$product->image, 'price' => $product->price,
+                'id' => $id, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity,
             ];
 
             $count = count($items['products_id']);
 
             $request->session()->put('items', $items);
 
+            $total_sum = 0;
+
+            foreach ($items['products_id'] as $key => $item) {
+                $total_sum += $item['sum'];
+            }
+
             return response()->json([
-                'alert' => 'Товар обновлен', 'countItems' => $count, 'quantity' => $request->quantity, 'slug' => $product->slug, 'title' => $product->title, 'img_path' => $product->path.'/'.$product->image, 'price' => $product->price,
+                'alert' => 'Товар обновлен', 'countItems' => $count, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity, 'total_sum' => $total_sum
             ]);
         }
 
         $items = [];
         $items['products_id'][$id] = [
-            'id' => $id, 'quantity' => 1, 'slug' => $product->slug, 'title' => $product->title, 'img_path' => $product->path.'/'.$product->image, 'price' => $product->price,
+            'id' => $id, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity,
         ];
 
         $request->session()->put('items', $items);
 
         return response()->json([
-            'alert' => 'Товар обновлен', 'countItems' => 1, 'slug' => $product->slug, 'title' => $product->title, 'img_path' => $product->path.'/'.$product->image, 'price' => $product->price,
+            'alert' => 'Товар обновлен', 'countItems' => 1, 'price' => $product->price, 'sum' => $product->price * $quantity
         ]);
     }
 
@@ -113,7 +119,7 @@ class CartController extends Controller
         }
 
         $order = new Order;
-        $order->user_id = ((Auth::check())) ? Auth::id() : 0;
+        $order->user_id = (Auth::check()) ? Auth::id() : 0;
         $order->name = $request->name;
         $order->phone = $request->phone;
         $order->email = $request->email;

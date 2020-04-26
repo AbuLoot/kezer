@@ -24,6 +24,12 @@
     column-count: 3;
   }
 }
+.list-group-item {
+  background-color: #1e1e1e;
+}
+.list-group-item-action {
+  color: #fff;
+}
 .custom-list-group {
   border: 1px solid #ededed;
   border-radius: 3px;
@@ -31,7 +37,7 @@
 .custom-list-group .list-group-item {
   border: 1px solid #ededed;
   font-weight: bold;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 .custom-list-group .list-group-item:first-child {
   border-top-right-radius: 0;

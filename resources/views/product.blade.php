@@ -31,7 +31,7 @@
     <div class="container">
       <div class="row single-product-area">
         <div class="col-lg-6 col-md-6">
-           <!-- Product Details Left -->
+          <!-- Product Details Left -->
           <div class="product-details-left">
             <div class="product-details-images slider-lg-image-1">
               @if ($product->images != '')
@@ -70,14 +70,6 @@
               {!! $product->characteristic !!}
               <div class="product-variants">
                 <div class="produt-variants-size">
-                  <label>Size</label>
-                  <select class="form-control-select" >
-                    <option value="1" title="S" selected="selected">S</option>
-                    <option value="2" title="M">M</option>
-                    <option value="3" title="L">L</option>
-                  </select>
-                </div>
-                <div class="produt-variants-size">
                   <label>Цвета</label>
                   <select class="form-control-select">
                     @foreach($product->options as $option)
@@ -85,16 +77,10 @@
                     @endforeach
                   </select>
                 </div>
-                <div class="produt-variants-color">
-                  <label>Color</label>
-                  <ul class="color-list">
-                    <li><a href="#" class="orange-color active"></a></li>
-                    <li><a href="#" class="paste-color"></a></li>
-                  </ul>
-                </div>
               </div>
               <div class="single-add-to-cart">
-                <form action="#" class="cart-quantity">
+                <form action="/add-to-cart/{{ $product->id }}" class="cart-quantity" method="get">
+                  @csrf
                   <?php $items = session('items'); ?>
                   @if (is_array($items) AND isset($items['products_id'][$product->id]))
                     <a href="/cart" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>
@@ -102,12 +88,12 @@
                     <div class="quantity">
                       <label>Количество</label>
                       <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="{{ $product->id }}" data-price="{{ $product->price }}" size="4" min="1" value="1">
+                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="quantity" data-price="{{ $product->price }}" size="4" min="1" value="1">
                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                       </div>
                     </div>
-                    <button class="add-to-cart" type="submit" data-product-id="{{ $product->id }}" onclick="addToCart(this);" title="Добавить в корзину">В корзину</button>
+                    <button class="add-to-cart" type="button" data-product-id="{{ $product->id }}" onclick="addToCart(this);" title="Добавить в корзину">В корзину</button>
                   @endif
                 </form>
               </div>
@@ -307,22 +293,22 @@
   <script>
     function addToCart(i) {
       var productId = $(i).data("product-id");
+      var quantity = $("input#quantity").val();
 
-      if (productId != '') {
-        $.ajax({
-          type: "get",
-          url: '/add-to-cart/'+productId,
-          dataType: "json",
-          data: {},
-          success: function(data) {
-            $('*[data-product-id="'+productId+'"]').replaceWith('<a href="/cart" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>');
-            $('#count-items').text(data.countItems);
-            alert('Товар добавлен в корзину');
-          }
-        });
-      } else {
-        alert("Ошибка сервера");
-      }
+      $.ajax({
+        type: "get",
+        url: '/add-to-cart/'+productId,
+        dataType: "json",
+        data: {
+          "quantity": quantity
+        },
+        success: function(data) {
+          $('*[data-product-id="'+productId+'"]').replaceWith('<a href="/cart" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>');
+          $('#count-items').text(data.countItems);
+          $('div.quantity').remove();
+          alert('Товар добавлен в корзину');
+        }
+      });
     }
   </script>
 @endsection

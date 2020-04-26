@@ -14,7 +14,7 @@
           <td>Заказчик</td>
           <td>Телефон</td>
           <td>Email</td>
-          <td>Город</td>
+          <td>Регион</td>
           <td>Количество</td>
           <td>Сумма</td>
           <td>Статус</td>
@@ -40,8 +40,8 @@
               @endforeach
             </td>
             <td class="text-nowrap">{{ $order->amount }}〒</td>
-            <td>{{ trans('orders.statuses.'.$order->status) }}</td>
-            <td class="text-right">
+            <td class="text-nowrap">{{ trans('orders.statuses.'.$order->status) }}</td>
+            <td class="text-right text-nowrap">
               <a class="btn btn-link btn-xs" href="{{ route('orders.edit', $order->id) }}" title="Редактировать"><i class="material-icons md-18">mode_edit</i></a>
               <form method="POST" action="{{ route('orders.destroy', $order->id) }}" accept-charset="UTF-8" class="btn-delete">
                 <input name="_method" type="hidden" value="DELETE">
