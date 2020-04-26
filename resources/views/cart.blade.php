@@ -5,57 +5,7 @@
 @section('meta_description', 'Корзина')
 
 @section('head')
-<style>
-  @media only screen and (max-width: 800px) {
 
-    /* Force table to not be like tables anymore */
-    #no-more-tables table, 
-    #no-more-tables thead, 
-    #no-more-tables tbody, 
-    #no-more-tables th, 
-    #no-more-tables td, 
-    #no-more-tables tr { 
-      display: block; 
-    }
-
-    /* Hide table headers (but not display: none;, for accessibility) */
-    #no-more-tables thead tr { 
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-
-    #no-more-tables tr { border: 1px solid #ccc; }
-
-    #no-more-tables td { 
-      /* Behave  like a "row" */
-      border: none;
-      border-bottom: 1px solid #eee; 
-      position: relative;
-      padding-left: 50%; 
-      white-space: normal;
-      text-align:left;
-    }
-
-    #no-more-tables td:before { 
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 6px;
-      left: 6px;
-      width: 45%; 
-      padding-right: 10px; 
-      white-space: nowrap;
-      text-align:left;
-      font-weight: bold;
-    }
-
-    /*
-    Label the data
-    */
-    #no-more-tables td:before { content: attr(data-title); }
-  }
-</style>
 @endsection
 
 @section('content')
@@ -86,7 +36,7 @@
               <div class="table-content table-responsive">
                 <table class="table table-hover">
                   <thead class="d-none d-sm-block">
-                    <tr class="row">
+                    <tr class="row no-gutters">
                       <th class="col-md-2 plantmore-product-thumbnail">Картинка</th>
                       <th class="col-md-3 cart-product-name">Продукт</th>
                       <th class="col-md-2 plantmore-product-price">Цена</th>
@@ -100,7 +50,7 @@
                     @foreach ($products as $product)
                       <?php $quantity = session('items')['products_id'][$product->id]['quantity']; ?>
                       <?php $total_sum += $product->price * $quantity; ?>
-                      <tr class="row">
+                      <tr class="row no-gutters">
                         <td class="col-md-2 col-6 border-top plantmore-product-thumbnail"><a href="/img/products/{{ $product->path.'/'.$product->image }}"><img src="/img/products/{{ $product->path.'/'.$product->image }}" style="width:80px;height:80px;"></a></td>
                         <td class="col-md-3 col-6 border-top plantmore-product-name text-left"><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></td>
                         <td class="col-md-2 col-3 plantmore-product-price"><span class="amount">{{ $product->price }}〒</span></td>
