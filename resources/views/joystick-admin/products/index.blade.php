@@ -46,7 +46,7 @@
           @endforeach
         </ul>
       </div>
-      <!-- <a href="/admin/products-price/edit" class="btn btn-primary btn-sm">Изменить цену</a> -->
+      <a href="/admin/products-price/edit" class="btn btn-primary btn-sm">Изменить цену</a>
       <a href="/admin/products/create" class="btn btn-success btn-sm">Добавить</a>
     </div>
   </div>
