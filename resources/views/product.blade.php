@@ -67,19 +67,19 @@
               </div>
               <span><b>Номер: {{ $product->barcode }}</b></span><hr>
               {!! $product->characteristic !!}
-              <div class="product-variants">
-                <div class="produt-variants-size">
-                  <label>Цвета</label>
-                  <select class="form-control-select">
-                    @foreach($product->options as $option)
-                      <option value="{{ $option->id }}" title="{{ $option->title }}">{{ $option->title }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
               <div class="single-add-to-cart">
                 <form action="/add-to-cart/{{ $product->id }}" class="cart-quantity" method="get">
                   @csrf
+                  <div class="product-variants">
+                    <div class="produt-variants-size">
+                      <label>Цвета</label>
+                      <select class="form-control-select" id="option_id" class="option_id">
+                        @foreach($product->options as $option)
+                          <option value="{{ $option->id }}" title="{{ $option->title }}">{{ $option->title }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div><br>
                   <?php $items = session('items'); ?>
                   @if (is_array($items) AND isset($items['products_id'][$product->id]))
                     <a href="/cart" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="top" title="Перейти в корзину">Оплатить</a>
@@ -292,6 +292,7 @@
   <script>
     function addToCart(i) {
       var productId = $(i).data("product-id");
+      var optionId = $("#option_id").val();
       var quantity = $("input#quantity").val();
 
       $.ajax({
@@ -299,6 +300,7 @@
         url: '/add-to-cart/'+productId,
         dataType: "json",
         data: {
+          "option_id": optionId,
           "quantity": quantity
         },
         success: function(data) {

@@ -40,7 +40,7 @@ class CartController extends Controller
             $items = $request->session()->get('items');
 
             $items['products_id'][$id] = [
-                'id' => $id, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity,
+                'id' => $id, 'quantity' => $quantity, 'option_id' => $request->option_id, 'price' => $product->price, 'sum' => $product->price * $quantity,
             ];
 
             $count = count($items['products_id']);
@@ -54,19 +54,19 @@ class CartController extends Controller
             }
 
             return response()->json([
-                'alert' => 'Товар обновлен', 'countItems' => $count, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity, 'total_sum' => $total_sum
+                'alert' => 'Товар обновлен', 'countItems' => $count, 'quantity' => $quantity, 'option_id' => $request->option_id, 'price' => $product->price, 'sum' => $product->price * $quantity, 'total_sum' => $total_sum
             ]);
         }
 
         $items = [];
         $items['products_id'][$id] = [
-            'id' => $id, 'quantity' => $quantity, 'price' => $product->price, 'sum' => $product->price * $quantity,
+            'id' => $id, 'quantity' => $quantity, 'option_id' => $request->option_id, 'price' => $product->price, 'sum' => $product->price * $quantity,
         ];
 
         $request->session()->put('items', $items);
 
         return response()->json([
-            'alert' => 'Товар обновлен', 'countItems' => 1, 'price' => $product->price, 'sum' => $product->price * $quantity
+            'alert' => 'Товар обновлен', 'countItems' => 1, 'option_id' => $request->option_id, 'price' => $product->price, 'sum' => $product->price * $quantity
         ]);
     }
 

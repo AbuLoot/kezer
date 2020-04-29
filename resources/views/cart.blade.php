@@ -49,10 +49,14 @@
                     <?php $total_sum = 0; ?>
                     @foreach ($products as $product)
                       <?php $quantity = session('items')['products_id'][$product->id]['quantity']; ?>
+                      <?php $option_id = session('items')['products_id'][$product->id]['option_id']; ?>
                       <?php $total_sum += $product->price * $quantity; ?>
                       <tr class="row no-gutters">
                         <td class="col-md-2 col-6 border-top plantmore-product-thumbnail"><a href="/img/products/{{ $product->path.'/'.$product->image }}"><img src="/img/products/{{ $product->path.'/'.$product->image }}" style="width:80px;height:80px;"></a></td>
-                        <td class="col-md-3 col-6 border-top plantmore-product-name text-left"><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></td>
+                        <td class="col-md-3 col-6 border-top plantmore-product-name text-left">
+                          <a href="/p/{{ $product->slug }}">{{ $product->title }}</a>
+                          <span>Цвет: <b>{{ $product->options->firstWhere('id', $option_id)->title }}</b></span>
+                        </td>
                         <td class="col-md-2 col-3 plantmore-product-price"><span class="amount">{{ $product->price }}〒</span></td>
                         <td class="col-md-2 col-3 plantmore-product-quantity">
                           <div class="quantity">
