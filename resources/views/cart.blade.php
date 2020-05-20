@@ -60,7 +60,7 @@
                             <span>Цвет: <b>{{ $product->options->firstWhere('id', $option_id)->title ?? '' }}</b></span>
                           <?php endif; ?>
                         </td>
-                        <td class="col-md-2 col-3 plantmore-product-price"><span class="amount">{{ $product->price }}〒</span></td>
+                        <td class="col-md-2 col-3 plantmore-product-price"><span class="amount">${{ $product->price }}</span></td>
                         <td class="col-md-2 col-3 plantmore-product-quantity">
                           <div class="quantity">
                             <div class="cart-plus-minus">
@@ -70,7 +70,7 @@
                             </div>
                           </div>
                         </td>
-                        <td class="col-md-2 col-3 product-subtotal"><span class="sum-{{ $product->id }}">{{ $product->price * $quantity }}</span>〒</td>
+                        <td class="col-md-2 col-3 product-subtotal"><span class="sum-{{ $product->id }}">{{ number_format($product->price * $quantity, 0, '', ' ') }}</span>$</td>
                         <td class="col-md-1 col-3 plantmore-product-remove"><a href="/destroy-from-cart/{{ $product->id }}" onclick="return confirm('Удалить запись?')"><i class="fa fa-close"></i></a></td>
                       </tr>
                     @endforeach

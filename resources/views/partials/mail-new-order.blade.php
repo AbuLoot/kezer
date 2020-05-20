@@ -52,7 +52,7 @@
                         <?php $i++; ?>
                       @endforeach
                     </b><br>
-                    <b>Сумма: {{ $order->amount }}〒</b><br>
+                    <b>Сумма: {{ $order->amount }}$</b><br>
                     <b>Дата:  <?php echo date('Y-m-d'); ?></b><br>
                     <b>Время: <?php echo date('G:i');  ?></b>
                   </td>

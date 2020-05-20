@@ -63,7 +63,7 @@
             <div class="product-info">
               <h2>{{ $product->title }}</h2>
               <div class="price-box">
-                <span class="new-price">{{ $product->price }}〒</span>
+                <span class="new-price">${{ number_format(number_format($product->price, 0, '', ' '), 0, '', ' ') }}</span>
               </div>
               <span><b>Номер: {{ $product->barcode }}</b></span><hr>
               {!! $product->characteristic !!}
@@ -87,7 +87,7 @@
                     <div class="quantity">
                       <label>Количество</label>
                       <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="quantity" data-price="{{ $product->price }}" size="4" min="1" value="1">
+                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="quantity" data-price="{{ number_format($product->price, 0, '', ' ') }}" size="4" min="1" value="1">
                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                       </div>
@@ -267,7 +267,7 @@
                 <div class="product-content">
                   <h3><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></h3>
                   <div class="price-box">
-                    <span class="new-price">{{ $product->price }}〒</span>
+                    <span class="new-price">${{ $product->price }}</span>
                   </div>
                   <div class="product-action">
                     @if (is_array($items) AND isset($items['products_id'][$product->id]))

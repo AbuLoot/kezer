@@ -52,7 +52,7 @@
       <label for="price">Цена</label>
       <div class="input-group">
         <input type="text" class="form-control" id="price" name="price" maxlength="10" value="{{ (old('price')) ? old('price') : '' }}">
-        <div class="input-group-addon">〒</div>
+        <div class="input-group-addon">$</div>
       </div>
     </div>
     <div class="form-group">

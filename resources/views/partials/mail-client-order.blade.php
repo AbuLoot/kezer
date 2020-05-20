@@ -53,7 +53,7 @@
                         <?php $i++; ?>
                       @endforeach
                     </b><br>
-                    <b>Сумма: {{ $order->amount }}〒</b><br>
+                    <b>Сумма: {{ $order->amount }}$</b><br>
                   </td>
                 </tr>
               </table>

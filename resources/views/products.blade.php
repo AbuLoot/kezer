@@ -141,7 +141,7 @@
                     <div class="product-content">
                       <h3><a href="/p/{{ $product->slug }}">{{ $product->title }}</a></h3>
                       <div class="price-box">
-                        <span class="new-price">{{ $product->price }}〒</span>
+                        <span class="new-price">${{ number_format($product->price, 0, '', ' ') }}</span>
                       </div>
                       <div class="product-action">
                         @if (is_array($items) AND isset($items['products_id'][$product->id]))

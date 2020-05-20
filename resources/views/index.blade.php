@@ -72,7 +72,7 @@
               <div class="product-content">
                 <h3><a href="/p/{{ $new_product->slug }}">{{ $new_product->title }}</a></h3>
                 <div class="price-box">
-                  <span class="new-price">{{ $new_product->price }}〒</span>
+                  <span class="new-price">${{ number_format($new_product->price, 0, '', ' ') }}</span>
                 </div>
                 <div class="product-action">
                   @if (is_array($items) AND isset($items['products_id'][$new_product->id]))
@@ -109,7 +109,7 @@
               <div class="product-content">
                 <h3><a href="/p/{{ $best_product->slug }}">{{ $best_product->title }}</a></h3>
                 <div class="price-box">
-                  <span class="new-price">{{ $best_product->price }}〒</span>
+                  <span class="new-price">${{ number_format($best_product->price, 0, '', ' ') }}</span>
                 </div>
                 <div class="product-action">
                   @if (is_array($items) AND isset($items['products_id'][$best_product->id]))

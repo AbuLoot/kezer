@@ -39,7 +39,7 @@
                 <?php $i++; ?>
               @endforeach
             </td>
-            <td class="text-nowrap">{{ $order->amount }}〒</td>
+            <td class="text-nowrap">{{ $order->amount }}$</td>
             <td class="text-nowrap">{{ trans('orders.statuses.'.$order->status) }}</td>
             <td class="text-right text-nowrap">
               <a class="btn btn-link btn-xs" href="{{ route('orders.edit', $order->id) }}" title="Редактировать"><i class="material-icons md-18">mode_edit</i></a>

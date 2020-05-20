@@ -68,14 +68,14 @@
                                   </div>
                                   <div class="col-md-8">
                                     <h5 class="mt-0"><a href="/p/{{ $order->products[$i]->id.'-'.$order->products[$i]->slug }}">{{ $order->products[$i]->title }}</a></h5>
-                                    {{ $order->products[$i]->price }}〒. <span>{{ $countProduct . ' шт.' }}</span>
+                                    {{ $order->products[$i]->price }}$. <span>{{ $countProduct . ' шт.' }}</span>
                                   </div>
                                 </div>
                               @endif
                               <?php $i++; ?>
                             @endforeach
                           </td>
-                          <td><span class="amount">{{ $order->price }}</span>〒</td>
+                          <td><span class="amount">{{ $order->price }}</span>$</td>
                           <td>{{ $order->city->country->title.', '.$order->city->title.', '.$order->address }}</td>
                           <td>{{ trans('orders.statuses.'.$order->status) }}</td>
                         </tr>

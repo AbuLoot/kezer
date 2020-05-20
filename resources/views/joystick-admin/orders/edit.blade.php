@@ -81,11 +81,11 @@
     </div>
     <div class="form-group">
       <label for="price">Цена</label>
-      <input type="text" class="form-control" id="price" name="price" value="{{ (old('price')) ? old('price') : $order->price }} 〒">
+      <input type="text" class="form-control" id="price" name="price" value="{{ (old('price')) ? old('price') : $order->price }} $">
     </div>
     <div class="form-group">
       <label for="amount">Сумма</label>
-      <input type="text" class="form-control" id="amount" name="amount" value="{{ (old('amount')) ? old('amount') : $order->amount }} 〒">
+      <input type="text" class="form-control" id="amount" name="amount" value="{{ (old('amount')) ? old('amount') : $order->amount }} $">
     </div>
     <div class="form-group">
       <label for="delivery">Способ доставки:</label>
