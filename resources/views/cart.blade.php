@@ -70,7 +70,7 @@
                             </div>
                           </div>
                         </td>
-                        <td class="col-md-2 col-3 product-subtotal"><span class="sum-{{ $product->id }}">{{ number_format($product->price * $quantity, 0, '', ' ') }}</span>$</td>
+                        <td class="col-md-2 col-3 product-subtotal"><span class="sum-{{ $product->id }}">{{ number_format($product->price * $quantity, 2, '.', ' ') }}</span>$</td>
                         <td class="col-md-1 col-3 plantmore-product-remove"><a href="/destroy-from-cart/{{ $product->id }}" onclick="return confirm('Удалить запись?')"><i class="fa fa-close"></i></a></td>
                       </tr>
                     @endforeach

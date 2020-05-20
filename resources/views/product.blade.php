@@ -63,7 +63,7 @@
             <div class="product-info">
               <h2>{{ $product->title }}</h2>
               <div class="price-box">
-                <span class="new-price">${{ number_format(number_format($product->price, 0, '', ' '), 0, '', ' ') }}</span>
+                <span class="new-price">${{ number_format(number_format($product->price, 2, '.', ' '), 2, '.', ' ') }}</span>
               </div>
               <span><b>Номер: {{ $product->barcode }}</b></span><hr>
               {!! $product->characteristic !!}
@@ -87,7 +87,7 @@
                     <div class="quantity">
                       <label>Количество</label>
                       <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="quantity" data-price="{{ number_format($product->price, 0, '', ' ') }}" size="4" min="1" value="1">
+                        <input class="cart-plus-minus-box" name="count[{{ $product->id }}]" id="quantity" data-price="{{ number_format($product->price, 2, '.', ' ') }}" size="4" min="1" value="1">
                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                       </div>
