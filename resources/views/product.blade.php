@@ -63,7 +63,7 @@
             <div class="product-info">
               <h2>{{ $product->title }}</h2>
               <div class="price-box">
-                <span class="new-price">${{ number_format(number_format($product->price, 2, '.', ' '), 2, '.', ' ') }}</span>
+                <span class="new-price">${{ number_format($product->price, 2, '.', ' ') }}</span>
               </div>
               <span><b>Номер: {{ $product->barcode }}</b></span><hr>
               {!! $product->characteristic !!}
